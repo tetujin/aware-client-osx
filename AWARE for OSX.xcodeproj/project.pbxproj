@@ -15,6 +15,16 @@
 		164FC6151C1298F400F77893 /* AWARE_for_OSXUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC6141C1298F400F77893 /* AWARE_for_OSXUITests.m */; };
 		164FC62C1C12C68600F77893 /* PreferencesWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC62A1C12C68600F77893 /* PreferencesWindow.m */; };
 		164FC62D1C12C68600F77893 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 164FC62B1C12C68600F77893 /* PreferencesWindow.xib */; };
+		164FC6301C1347C100F77893 /* AWAREStudy.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC62F1C1347C100F77893 /* AWAREStudy.m */; };
+		164FC6331C1347D400F77893 /* AWARESensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC6321C1347D400F77893 /* AWARESensor.m */; };
+		164FC6361C13481C00F77893 /* AWAREPcApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC6351C13481C00F77893 /* AWAREPcApp.m */; };
+		164FC6391C13483500F77893 /* AWAREPcMouseClick.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC6381C13483500F77893 /* AWAREPcMouseClick.m */; };
+		164FC63C1C13484C00F77893 /* AWAREPcKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC63B1C13484C00F77893 /* AWAREPcKeyboard.m */; };
+		164FC63F1C13489F00F77893 /* AWAREPcState.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC63E1C13489F00F77893 /* AWAREPcState.m */; };
+		164FC6431C1348E700F77893 /* AWAREKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC6421C1348E700F77893 /* AWAREKeys.m */; };
+		164FC6461C13765B00F77893 /* AWARESensorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC6451C13765B00F77893 /* AWARESensorManager.m */; };
+		164FC6491C13D0C100F77893 /* AWAREPcMouseLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC6481C13D0C100F77893 /* AWAREPcMouseLocation.m */; };
+		744E05EFC3A49374938E0467 /* libPods-AWARE for OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 984B4EBC6B5DDCD9F7164FA2 /* libPods-AWARE for OSX.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +61,27 @@
 		164FC6291C12C68600F77893 /* PreferencesWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindow.h; sourceTree = "<group>"; };
 		164FC62A1C12C68600F77893 /* PreferencesWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindow.m; sourceTree = "<group>"; };
 		164FC62B1C12C68600F77893 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
+		164FC62E1C1347C100F77893 /* AWAREStudy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWAREStudy.h; sourceTree = "<group>"; };
+		164FC62F1C1347C100F77893 /* AWAREStudy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWAREStudy.m; sourceTree = "<group>"; };
+		164FC6311C1347D400F77893 /* AWARESensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWARESensor.h; sourceTree = "<group>"; };
+		164FC6321C1347D400F77893 /* AWARESensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWARESensor.m; sourceTree = "<group>"; };
+		164FC6341C13481C00F77893 /* AWAREPcApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWAREPcApp.h; sourceTree = "<group>"; };
+		164FC6351C13481C00F77893 /* AWAREPcApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWAREPcApp.m; sourceTree = "<group>"; };
+		164FC6371C13483500F77893 /* AWAREPcMouseClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWAREPcMouseClick.h; sourceTree = "<group>"; };
+		164FC6381C13483500F77893 /* AWAREPcMouseClick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWAREPcMouseClick.m; sourceTree = "<group>"; };
+		164FC63A1C13484C00F77893 /* AWAREPcKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWAREPcKeyboard.h; sourceTree = "<group>"; };
+		164FC63B1C13484C00F77893 /* AWAREPcKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWAREPcKeyboard.m; sourceTree = "<group>"; };
+		164FC63D1C13489F00F77893 /* AWAREPcState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWAREPcState.h; sourceTree = "<group>"; };
+		164FC63E1C13489F00F77893 /* AWAREPcState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWAREPcState.m; sourceTree = "<group>"; };
+		164FC6411C1348E700F77893 /* AWAREKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWAREKeys.h; sourceTree = "<group>"; };
+		164FC6421C1348E700F77893 /* AWAREKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWAREKeys.m; sourceTree = "<group>"; };
+		164FC6441C13765B00F77893 /* AWARESensorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWARESensorManager.h; sourceTree = "<group>"; };
+		164FC6451C13765B00F77893 /* AWARESensorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWARESensorManager.m; sourceTree = "<group>"; };
+		164FC6471C13D0C100F77893 /* AWAREPcMouseLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWAREPcMouseLocation.h; sourceTree = "<group>"; };
+		164FC6481C13D0C100F77893 /* AWAREPcMouseLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWAREPcMouseLocation.m; sourceTree = "<group>"; };
+		20A22747A29EF2B62F396627 /* Pods-AWARE for OSX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AWARE for OSX.release.xcconfig"; path = "Pods/Target Support Files/Pods-AWARE for OSX/Pods-AWARE for OSX.release.xcconfig"; sourceTree = "<group>"; };
+		850500E5826D4BED0EE287CF /* Pods-AWARE for OSX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AWARE for OSX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AWARE for OSX/Pods-AWARE for OSX.debug.xcconfig"; sourceTree = "<group>"; };
+		984B4EBC6B5DDCD9F7164FA2 /* libPods-AWARE for OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AWARE for OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				744E05EFC3A49374938E0467 /* libPods-AWARE for OSX.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +117,8 @@
 				164FC6081C1298F400F77893 /* AWARE for OSXTests */,
 				164FC6131C1298F400F77893 /* AWARE for OSXUITests */,
 				164FC5F01C1298F300F77893 /* Products */,
+				D3790867579E849345ADE8F3 /* Pods */,
+				AD18BBA80B368297A4C018D8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +139,13 @@
 				164FC5F31C1298F300F77893 /* AppDelegate.m */,
 				164FC6291C12C68600F77893 /* PreferencesWindow.h */,
 				164FC62A1C12C68600F77893 /* PreferencesWindow.m */,
+				164FC62E1C1347C100F77893 /* AWAREStudy.h */,
+				164FC62F1C1347C100F77893 /* AWAREStudy.m */,
+				164FC6441C13765B00F77893 /* AWARESensorManager.h */,
+				164FC6451C13765B00F77893 /* AWARESensorManager.m */,
+				164FC6411C1348E700F77893 /* AWAREKeys.h */,
+				164FC6421C1348E700F77893 /* AWAREKeys.m */,
+				164FC6401C1348AC00F77893 /* AWARESensors */,
 				164FC62B1C12C68600F77893 /* PreferencesWindow.xib */,
 				164FC5FB1C1298F300F77893 /* Assets.xcassets */,
 				164FC5FD1C1298F300F77893 /* Main.storyboard */,
@@ -140,6 +181,42 @@
 			path = "AWARE for OSXUITests";
 			sourceTree = "<group>";
 		};
+		164FC6401C1348AC00F77893 /* AWARESensors */ = {
+			isa = PBXGroup;
+			children = (
+				164FC6311C1347D400F77893 /* AWARESensor.h */,
+				164FC6321C1347D400F77893 /* AWARESensor.m */,
+				164FC6341C13481C00F77893 /* AWAREPcApp.h */,
+				164FC6351C13481C00F77893 /* AWAREPcApp.m */,
+				164FC6371C13483500F77893 /* AWAREPcMouseClick.h */,
+				164FC6381C13483500F77893 /* AWAREPcMouseClick.m */,
+				164FC6471C13D0C100F77893 /* AWAREPcMouseLocation.h */,
+				164FC6481C13D0C100F77893 /* AWAREPcMouseLocation.m */,
+				164FC63A1C13484C00F77893 /* AWAREPcKeyboard.h */,
+				164FC63B1C13484C00F77893 /* AWAREPcKeyboard.m */,
+				164FC63D1C13489F00F77893 /* AWAREPcState.h */,
+				164FC63E1C13489F00F77893 /* AWAREPcState.m */,
+			);
+			name = AWARESensors;
+			sourceTree = "<group>";
+		};
+		AD18BBA80B368297A4C018D8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				984B4EBC6B5DDCD9F7164FA2 /* libPods-AWARE for OSX.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D3790867579E849345ADE8F3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				850500E5826D4BED0EE287CF /* Pods-AWARE for OSX.debug.xcconfig */,
+				20A22747A29EF2B62F396627 /* Pods-AWARE for OSX.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -147,9 +224,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 164FC6191C1298F400F77893 /* Build configuration list for PBXNativeTarget "AWARE for OSX" */;
 			buildPhases = (
+				9BC0B1709BC75AF8173122DE /* Check Pods Manifest.lock */,
 				164FC5EB1C1298F300F77893 /* Sources */,
 				164FC5EC1C1298F300F77893 /* Frameworks */,
 				164FC5ED1C1298F300F77893 /* Resources */,
+				ECE8045CAD29B7EAC71A632A /* Embed Pods Frameworks */,
+				9F260D60D4AB5108D044F0C8 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -265,14 +345,71 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9BC0B1709BC75AF8173122DE /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9F260D60D4AB5108D044F0C8 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AWARE for OSX/Pods-AWARE for OSX-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ECE8045CAD29B7EAC71A632A /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AWARE for OSX/Pods-AWARE for OSX-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		164FC5EB1C1298F300F77893 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				164FC63C1C13484C00F77893 /* AWAREPcKeyboard.m in Sources */,
+				164FC6301C1347C100F77893 /* AWAREStudy.m in Sources */,
+				164FC6491C13D0C100F77893 /* AWAREPcMouseLocation.m in Sources */,
+				164FC63F1C13489F00F77893 /* AWAREPcState.m in Sources */,
 				164FC5F71C1298F300F77893 /* main.m in Sources */,
+				164FC6461C13765B00F77893 /* AWARESensorManager.m in Sources */,
 				164FC5F41C1298F300F77893 /* AppDelegate.m in Sources */,
+				164FC6331C1347D400F77893 /* AWARESensor.m in Sources */,
 				164FC62C1C12C68600F77893 /* PreferencesWindow.m in Sources */,
+				164FC6391C13483500F77893 /* AWAREPcMouseClick.m in Sources */,
+				164FC6431C1348E700F77893 /* AWAREKeys.m in Sources */,
+				164FC6361C13481C00F77893 /* AWAREPcApp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +537,7 @@
 		};
 		164FC61A1C1298F400F77893 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 850500E5826D4BED0EE287CF /* Pods-AWARE for OSX.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -412,6 +550,7 @@
 		};
 		164FC61B1C1298F400F77893 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20A22747A29EF2B62F396627 /* Pods-AWARE for OSX.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;

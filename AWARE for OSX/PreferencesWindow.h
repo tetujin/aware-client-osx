@@ -7,8 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <ZXingObjC/ZXingObjC.h>
+#import "AWARESensorManager.h"
 
 @interface PreferencesWindow : NSWindowController
+
+-(instancetype) initWithSensorManager:(AWARESensorManager *) sensorManager;
+
 - (IBAction)pushedAwareButton:(id)sender;
 - (IBAction)pushedSensorsView:(id)sender;
 - (IBAction)pushedStudyButton:(id)sender;
@@ -17,5 +22,26 @@
 @property (strong) IBOutlet NSView *studyView;
 @property (strong) IBOutlet NSView *sensorsView;
 
+/** AWARE View */
+- (IBAction)pushedDoneButton:(id)sender;
+@property (weak) IBOutlet NSTextField *deviceUuid;
+@property (weak) IBOutlet NSTextField *syncInterval;
+@property (weak) IBOutlet NSButton *debugState;
+@property (weak) IBOutlet NSComboBox *deleteInterval;
+
+/** AWARE Sensor View */
+@property (weak) IBOutlet NSTextField *deviceState;
+@property (weak) IBOutlet NSTextField *activeApp;
+@property (weak) IBOutlet NSTextField *keyAction;
+@property (weak) IBOutlet NSTextField *mouseLocation;
+@property (weak) IBOutlet NSTextField *mouseClick;
+
+/* Study View */
+- (IBAction)pushedSelectQRcode:(id)sender;
+- (IBAction)pushedTakeScreenshot:(id)sender;
+@property (weak) IBOutlet NSTextField *studyId;
+@property (weak) IBOutlet NSTextField *webserviceUrl;
+@property (weak) IBOutlet NSTextField *mqttServerUrl;
+@property (weak) IBOutlet NSTextField *mqttUserName;
 
 @end

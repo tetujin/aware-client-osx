@@ -7,18 +7,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "AWARESensorManager.h"
 
 
-
-static id monitorLeftMouseDown;
-static id monitorRightMouseDown;
-static id monitorKeyDown;
 
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (weak) IBOutlet NSMenu *statusMenu;
 @property (readwrite) BOOL loggingEnabled;
+@property (strong) AWARESensorManager *sensorManager;
 
 - (IBAction)pushedSettingButton:(id)sender;
 
