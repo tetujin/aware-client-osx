@@ -22,10 +22,10 @@ AWARE Framework Client for iOS uses following external libraries via [CocoaPod](
 
 ## TODO
 - Connect to MQTT server
--- for controlling a study from AWARE dashboard
--- for ESM/EMA
+    - for controlling a study from AWARE dashboard
+    - for ESM/EMA
 - Add more sensors
--- memory, battery, wifi, bluetooth, etc.
+    - memory, battery, wifi, bluetooth, etc.
 - Add data visualisers
 - Add a Google Login method
 
