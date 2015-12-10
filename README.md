@@ -16,7 +16,7 @@ Nothing is more stressful than to interrupt a mobile phone user at the most unfo
 AWARE Framework client for OSX is developed by [Yuuki Nishiyama](https://www.ht.sfc.keio.ac.jp/~tetujin/) (Tokuda Laboratory, SFC, Keio University). Also, [AWARE framework](http://www.awareframework.com/) and [AWARE Framework client](https://github.com/denzilferreira/aware-client) (for Android) were created by [Denzil Ferreira](http://www.denzilferreira.com/) (Community Imaging Group, University of Oulu) and his group originally.
 
 ## Libraries
-AWARE Framework Client for iOS uses following external libraries via [CocoaPod](https://cocoapods.org/).
+AWARE Framework Client for Mac OS X uses following external libraries via [CocoaPod](https://cocoapods.org/).
 - [SCNetworkReachability](https://github.com/belkevich/reachability-ios)
 - [ZXingObjC](https://github.com/zxing/zxing)
 
@@ -30,7 +30,7 @@ AWARE Framework Client for iOS uses following external libraries via [CocoaPod](
 - Add a Google Login method
 
 ## License
-Copyright (c) 2015 AWARE Mobile Context Instrumentation Middleware/Framework for iOS (http://www.awareframework.com)
+Copyright (c) 2015 AWARE Mobile Context Instrumentation Middleware/Framework for Mac OS X (http://www.awareframework.com)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
