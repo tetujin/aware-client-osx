@@ -11,14 +11,12 @@
 @implementation AWAREPcMouseLocation{
     NSTimer *sensingTimer;
     NSTimer *syncTimer;
-    /** Previous application name */
-    //    NSString *pastActiveApp;
     NSPoint pastMouseLocation;
     double lastUpdateTime;
 }
 
-- (instancetype)initWithSensorName:(NSString *)sensorName{
-    self = [super initWithSensorName:sensorName];
+- (instancetype)initWithSensorName:(NSString *)sensorName awareStudy:(AWAREStudy *)study{
+    self = [super initWithSensorName:sensorName awareStudy:study];
     if (self) {
         [super setSensorName:sensorName];
         pastMouseLocation = [NSEvent mouseLocation];

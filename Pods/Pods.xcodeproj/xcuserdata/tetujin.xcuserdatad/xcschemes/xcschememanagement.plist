@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>MQTTClient.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-AWARE for OSX.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>5075F59718D4EBB2B3C26BC469EF68A8</key>
+		<key>382549381904B5A3DFE974BE978ABE12</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>952BA3F67CD4662AEBFBF9A28FBEDEC2</key>
+		<key>D9036F30C44D4A93B75624B2ADB27619</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C81CDF50343E9624585E4CEAA8C52F74</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E26B1C74DFE93284E7AC913E2F530216</key>
+		<key>F7A99392B25FC11D274331544FEFE664</key>
 		<dict>
 			<key>primary</key>
 			<true/>

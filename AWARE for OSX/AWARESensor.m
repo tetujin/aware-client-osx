@@ -8,6 +8,7 @@
 
 #import "AWARESensor.h"
 #import "AWAREKeys.h"
+#import "AWAREStudy.h"
 
 @implementation AWARESensor {
     int bufferLimit;
@@ -22,10 +23,11 @@
     NSTimer* writeAbleTimer;
     bool writeAble;
     int marker;
+    AWAREStudy *awareStudy;
 }
 
 
-- (instancetype) initWithSensorName:(NSString *)sensorName {
+- (instancetype) initWithSensorName:(NSString *)sensorName awareStudy:(AWAREStudy *) study{
     if (self = [super init]) {
         NSLog(@"[%@] Initialize an AWARESensor as '%@' ", sensorName, sensorName);
         awareSensorName = sensorName;
@@ -35,6 +37,7 @@
         //        fileClearState = NO;
         awareSensorName = sensorName;
         latestSensorValue = @"";
+        awareStudy = study;
         tempData = [[NSMutableString alloc] init];
         bufferStr = [[NSMutableString alloc] init];
         reachability = [[SCNetworkReachability alloc] initWithHost:@"www.google.com"];
@@ -167,9 +170,10 @@
 
 
 - (NSString *)getWebserviceUrl{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString* url = [userDefaults objectForKey:KEY_WEBSERVICE_SERVER];
-    if (url == NULL) {
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    NSString* url = [userDefaults objectForKey:KEY_WEBSERVICE_SERVER];
+    NSString *url = [awareStudy getWebserviceServer];
+    if (url == NULL || [url isEqualToString:@""]) {
         NSLog(@"[Error] You did not have a StudyID. Please check your study configuration.");
         return @"";
     }
@@ -177,9 +181,10 @@
 }
 
 - (NSString *)getDeviceId{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString* deviceId = [userDefaults objectForKey:KEY_MQTT_USERNAME];
-    if (deviceId == NULL) {
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    NSString* deviceId = [userDefaults objectForKey:KEY_MQTT_USERNAME];
+    NSString *deviceId = [awareStudy getMqttUserName];
+    if (deviceId == NULL || [deviceId isEqualToString:@""]) {
         NSLog(@"[Error] You did not have a StudyID. Please check your study configuration.");
         return @"";
     }

@@ -5,7 +5,7 @@
 
 target 'AWARE for OSX' do
 pod 'ZXingObjC'
-pod 'MQTTClient'
+#pod 'MQTTClient'
 pod 'SCNetworkReachability'
 end
 

@@ -12,7 +12,7 @@
 
 @interface PreferencesWindow : NSWindowController
 
--(instancetype) initWithSensorManager:(AWARESensorManager *) sensorManager;
+-(instancetype) initWithSensorManager:(AWARESensorManager *) sensorManager awareStudy:(AWAREStudy *)study;
 
 - (IBAction)pushedAwareButton:(id)sender;
 - (IBAction)pushedSensorsView:(id)sender;

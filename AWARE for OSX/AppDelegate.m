@@ -61,12 +61,14 @@
     /** current PC's statement（boolean） */
     bool userActiveState;
 
+    AWAREStudy *study;
 }
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
+        [self enableLoginItem];
         /**
          * initialization
          */
@@ -88,8 +90,8 @@
         // Add sensors to the SensorManager
         _sensorManager = [[AWARESensorManager alloc] init];
         double syncInterval = 60.0f;
-        AWAREStudy *awareStudy = [[AWAREStudy alloc] init];
-        if ([awareStudy isAvailable]) {
+        study = [[AWAREStudy alloc] init];
+        if ([study isAvailable]) {
 //            [_deviceUuid setStringValue:[awareStudy getMqttUserName]];
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             NSString *syncInt = [userDefaults objectForKey:SETTING_SYNC_INT];
@@ -104,12 +106,12 @@
 //                [_deleteInterval selectItemAtIndex:[n intValue]];
 //            }
 
-            [_sensorManager startAllSensorsWithSyncInterval:syncInterval];
+            [_sensorManager startAllSensorsWithSyncInterval:syncInterval awareStudy:study];
         } else {
             
             NSAlert *alert = [NSAlert new];
             alert.messageText = @"Please join a AWARE study";
-            alert.informativeText = [NSString stringWithFormat:@"Do you open the preference view?"];
+            alert.informativeText = [NSString stringWithFormat:@"Do you open a preference window?"];
             [alert addButtonWithTitle:@"YES"];
             [alert addButtonWithTitle:@"NO"];
             if ([alert runModal] == NSAlertFirstButtonReturn) {
@@ -143,11 +145,25 @@
 - (IBAction)pushedSettingButton:(id)sender {
     NSLog(@"%@", [_sensorManager getLatestSensorData:SENSOR_PC_MOUSE_LOCATION]);
     if(!window){
-        window = [[PreferencesWindow alloc] initWithSensorManager:_sensorManager];
+        window = [[PreferencesWindow alloc] initWithSensorManager:_sensorManager awareStudy:study];
         [window showWindow:self];
     }else{
         [window showWindow:self];
     }
+}
+
+/**
+ * Auto Login
+ */
+- (void)enableLoginItem{
+    CFURLRef url = (__bridge CFURLRef)[NSURL fileURLWithPath: [[NSBundle mainBundle] bundlePath]];
+    
+    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+    LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemLast, NULL, NULL, url, NULL, NULL);
+    if (item) {
+        CFRelease(item);
+    }
+    CFRelease(loginItems);
 }
 
 

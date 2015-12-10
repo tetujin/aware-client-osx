@@ -13,11 +13,11 @@
     NSMutableArray* awareSensors;
 }
 
-- (void) startAllSensorsWithSyncInterval:(double) interval;
+- (void) startAllSensorsWithSyncInterval:(double) interval awareStudy:(AWAREStudy *)study;
 - (void) stopAllSensors;
 - (void) stopASensor:(NSString *) sensorName;
 - (void) addNewSensor:(AWARESensor *) sensor;
-- (bool)addNewSensor:(NSString *)sensorName withSyncInterval:(double)interval;
+- (bool)addNewSensor:(NSString *)sensorName withSyncInterval:(double)interval awareStudy:(AWAREStudy *)study;
 //- (bool) addNewSensorWithSensorName:(NSString *)sensorName
 //                           settings:(NSArray*)settings
 //                            plugins:(NSArray*)plugins

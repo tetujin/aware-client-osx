@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SCNetworkReachability.h"
+#import "AWAREStudy.h"
 
 @protocol AWARESensorDelegate <NSObject>
 //- (BOOL) startSensor:(double) interval withUploadInterval:(double)upInterval;
@@ -17,7 +18,7 @@
 
 @interface AWARESensor : NSObject <AWARESensorDelegate>
 
-- (instancetype) initWithSensorName:(NSString *) sensorName;
+- (instancetype) initWithSensorName:(NSString *) sensorName awareStudy:(AWAREStudy *) study;
 
 - (void) setBufferLimit:(int) limit;
 

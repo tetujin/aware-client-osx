@@ -19,8 +19,8 @@
     NSPoint pastMouseLocation;
 }
 
-- (instancetype)initWithSensorName:(NSString *)sensorName{
-    self = [super initWithSensorName:sensorName];
+- (instancetype)initWithSensorName:(NSString *)sensorName awareStudy:(AWAREStudy *)study{
+    self = [super initWithSensorName:sensorName awareStudy:study];
     if (self) {
         [super setSensorName:sensorName];
         pastMouseLocation = [NSEvent mouseLocation];

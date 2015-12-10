@@ -11,8 +11,6 @@
 
 @implementation AWAREStudy{
     NSString *crtUrl;
-//    NSString *deviceId;
-    
     NSString *mqttPassword;
     NSString *mqttUsername;
     NSString *studyId;
@@ -30,7 +28,6 @@
     self = [super init];
     if (self) {
         crtUrl = @"http://www.awareframework.com/awareframework.crt";
-//        deviceId = [self getSystemUUID];
         mqttPassword = @"";
         mqttUsername = @"";
         studyId = @"";
@@ -40,6 +37,18 @@
         mqttKeepAlive = 600;
         mqttQos = 2;
         readingState = YES;
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString* tempUserName = [userDefaults objectForKey:KEY_MQTT_USERNAME];
+        if(tempUserName != nil){
+            mqttServer = [userDefaults objectForKey:KEY_MQTT_SERVER];
+            mqttUsername = [userDefaults objectForKey:KEY_MQTT_USERNAME];
+            mqttPassword =  [userDefaults objectForKey:KEY_MQTT_PASS];
+            mqttPort =  [[userDefaults objectForKey:KEY_MQTT_PORT] intValue];
+            mqttKeepAlive = [[userDefaults objectForKey:KEY_MQTT_KEEP_ALIVE] intValue];
+            mqttQos = [[userDefaults objectForKey:KEY_MQTT_QOS] intValue];
+            studyId = [userDefaults objectForKey:KEY_STUDY_ID];
+            webserviceServer = [userDefaults objectForKey:KEY_WEBSERVICE_SERVER];
+        }
     }
     return self;
 }
@@ -79,7 +88,7 @@
         int responseCode = (int)[response statusCode];
         NSLog(@"%d",responseCode);
         if(responseCode == 0){
-            NSString *url =  crtUrl;
+//            NSString *url =  crtUrl;
 //            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
         }else{
             NSArray *mqttArray = [NSJSONSerialization JSONObjectWithData:resData options:NSJSONReadingMutableContainers error:nil];
@@ -140,6 +149,8 @@
                     [userDefaults setObject:plugins forKey:KEY_PLUGINS];
                     
                     readingState = YES;
+                }else{
+                    NSLog(@"AWARE cannot get study information from AWARE server.");
                 }
 //            });
         }
@@ -152,18 +163,8 @@
     url = [NSString stringWithFormat:@"%@/aware_device/insert", url];
     NSMutableDictionary *jsonQuery = [[NSMutableDictionary alloc] init];
     NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
-    NSNumber* unixtime = [NSNumber numberWithDouble:timeStamp] ;
-//    struct utsname systemInfo;
-//    uname(&systemInfo);
-//    NSString* code = [NSString stringWithCString:systemInfo.machine
-//                                        encoding:NSUTF8StringEncoding];
-    //    NSString *systemName = [[UIDevice currentDevice] systemName];
-//    NSString *identifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-//    NSString *name = [[UIDevice currentDevice] name];
-//    NSString *systemVersion = [[UIDevice currentDevice] systemVersion];
-//    //    NSString *localizeModel = [[UIDevice currentDevice] localizedModel];
-//    NSString *model = [[UIDevice currentDevice] model];
-//        NSString *deviceName = [self deviceName];
+    NSNumber* unixtime = [NSNumber numberWithDouble:timeStamp];
+    
     NSString *deviceName = @"";
     NSString *manufacturer = @"Apple";
     NSString *model = @"Mac Book ---";
@@ -171,7 +172,6 @@
     NSString *systemVersion = @"";
     NSString *identifier = @"";
     NSString *name = @"";
-    
     
     [jsonQuery setValue:uuid  forKey:@"device_id"];
     [jsonQuery setValue:unixtime forKey:@"timestamp"];
@@ -247,44 +247,35 @@
 
 // MQTT Information
 - (NSString* ) getMqttServer{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [userDefaults objectForKey:KEY_MQTT_SERVER];
+    return mqttServer;
 }
 
 - (NSString* ) getMqttUserName{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [userDefaults objectForKey:KEY_MQTT_USERNAME];
+    return mqttUsername;
 }
 
 - (NSString* ) getMqttPassowrd{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [userDefaults objectForKey:KEY_MQTT_PASS];
+    return mqttPassword;
 }
 
 - (NSNumber* ) getMqttPort{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [userDefaults objectForKey:KEY_MQTT_PORT];
+    return [NSNumber numberWithInt:mqttPort];
 }
 
 - (NSNumber* ) getMqttKeepAlive{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [userDefaults objectForKey:KEY_MQTT_KEEP_ALIVE];
+    return [NSNumber numberWithInt:mqttKeepAlive];
 }
 
 - (NSNumber* ) getMqttQos{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [userDefaults objectForKey:KEY_MQTT_QOS];
+    return [NSNumber numberWithInt:mqttKeepAlive];
 }
 
 // Study Information
 - (NSString* ) getStudyId{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [userDefaults objectForKey:KEY_STUDY_ID];
-}
+    return studyId;}
 
 - (NSString* ) getWebserviceServer{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [userDefaults objectForKey:KEY_WEBSERVICE_SERVER];
+    return webserviceServer;
 }
 
 // Sensor Infromation
@@ -298,7 +289,7 @@
     return [userDefaults objectForKey:KEY_PLUGINS];
 }
 
-- (void) clearAllSetting {
+- (BOOL) clearAllSetting {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults removeObjectForKey:KEY_MQTT_SERVER];
     [userDefaults removeObjectForKey:KEY_MQTT_USERNAME];
@@ -310,6 +301,7 @@
     [userDefaults removeObjectForKey:KEY_WEBSERVICE_SERVER];
     [userDefaults removeObjectForKey:KEY_SENSORS];
     [userDefaults removeObjectForKey:KEY_PLUGINS];
+    return YES;
 }
 
 @end

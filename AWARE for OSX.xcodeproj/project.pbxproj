@@ -79,6 +79,7 @@
 		164FC6451C13765B00F77893 /* AWARESensorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWARESensorManager.m; sourceTree = "<group>"; };
 		164FC6471C13D0C100F77893 /* AWAREPcMouseLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWAREPcMouseLocation.h; sourceTree = "<group>"; };
 		164FC6481C13D0C100F77893 /* AWAREPcMouseLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWAREPcMouseLocation.m; sourceTree = "<group>"; };
+		164FC64A1C14DE0800F77893 /* AWARE for OSX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "AWARE for OSX.entitlements"; sourceTree = "<group>"; };
 		20A22747A29EF2B62F396627 /* Pods-AWARE for OSX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AWARE for OSX.release.xcconfig"; path = "Pods/Target Support Files/Pods-AWARE for OSX/Pods-AWARE for OSX.release.xcconfig"; sourceTree = "<group>"; };
 		850500E5826D4BED0EE287CF /* Pods-AWARE for OSX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AWARE for OSX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AWARE for OSX/Pods-AWARE for OSX.debug.xcconfig"; sourceTree = "<group>"; };
 		984B4EBC6B5DDCD9F7164FA2 /* libPods-AWARE for OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AWARE for OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +136,7 @@
 		164FC5F11C1298F300F77893 /* AWARE for OSX */ = {
 			isa = PBXGroup;
 			children = (
+				164FC64A1C14DE0800F77893 /* AWARE for OSX.entitlements */,
 				164FC5F21C1298F300F77893 /* AppDelegate.h */,
 				164FC5F31C1298F300F77893 /* AppDelegate.m */,
 				164FC6291C12C68600F77893 /* PreferencesWindow.h */,
@@ -287,6 +289,12 @@
 				TargetAttributes = {
 					164FC5EE1C1298F300F77893 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = FH352PYMNC;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
 					};
 					164FC6041C1298F400F77893 = {
 						CreatedOnToolsVersion = 7.1;
@@ -492,7 +500,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -529,7 +537,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
@@ -543,6 +551,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "AWARE for OSX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.ac.keio.sfc.ht.tetujin.AWARE-for-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -556,6 +565,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "AWARE for OSX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "jp.ac.keio.sfc.ht.tetujin.AWARE-for-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

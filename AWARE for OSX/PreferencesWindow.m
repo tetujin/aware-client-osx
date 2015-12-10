@@ -18,12 +18,14 @@
 
 @implementation PreferencesWindow{
     AWARESensorManager *sensorManager;
+    AWAREStudy *awareStudy;
     NSTimer* sensorViewRefreshTimer;
 }
 
-- (instancetype)initWithSensorManager:(AWARESensorManager* )manager{
+- (instancetype)initWithSensorManager:(AWARESensorManager* )manager awareStudy:(AWAREStudy *)study{
     self = [super initWithWindowNibName:@"PreferencesWindow"];
     if (self) {
+        awareStudy = study;
         sensorManager = manager;
         sensorViewRefreshTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f
                                                                   target:self
@@ -62,15 +64,15 @@
 }
 
 - (IBAction)pushedTrashButton:(id)sender {
-    NSLog(@"Remove a study!");
+    NSLog(@"delete the current AWARE study!");
     NSAlert *alert = [NSAlert new];
-    alert.messageText = @"Do you want to cancel the joined AWARE study?";
+    alert.messageText = @"Do you delete the current AWARE study?";
 //    alert.informativeText = [NSString stringWithFormat:@"You you want to jon the study? \n- %@", url];
     [alert addButtonWithTitle:@"YES"];
     [alert addButtonWithTitle:@"NO"];
     [alert beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
         if ( result == 1000 ) {
-            AWAREStudy *awareStudy = [[AWAREStudy alloc] init];
+//            AWAREStudy *awareStudy = [[AWAREStudy alloc] init];
             if ([awareStudy isAvailable]) {
                 [awareStudy clearAllSetting];
                 [self initAwareView];
@@ -104,7 +106,7 @@
 }
 
 - (void) initAwareView {
-    AWAREStudy *awareStudy = [[AWAREStudy alloc] init];
+//    AWAREStudy *awareStudy = [[AWAREStudy alloc] init];
     if ([awareStudy isAvailable]) {
         [_deviceUuid setStringValue:[awareStudy getMqttUserName]];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -130,7 +132,7 @@
 
 
 - (void) initStudyView {
-    AWAREStudy *awareStudy = [[AWAREStudy alloc] init];
+//    AWAREStudy *awareStudy = [[AWAREStudy alloc] init];
     if ([awareStudy isAvailable]) {
         [_studyId setStringValue:[awareStudy getStudyId]];
         [_webserviceUrl setStringValue:[awareStudy getWebserviceServer]]
@@ -151,7 +153,7 @@
  */
 
 - (IBAction)pushedDoneButton:(id)sender {
-    AWAREStudy *awareStudy = [[AWAREStudy alloc] init];
+//    AWAREStudy *awareStudy = [[AWAREStudy alloc] init];
     if ([awareStudy isAvailable]) {
         [self setAwareConfig];
     }
@@ -174,8 +176,7 @@
     [alert addButtonWithTitle:@"OK"];
 //    [alert addButtonWithTitle:@"Canel"];
     [alert beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
-//        [sensorManager stopAllSensors];
-//        [sensorManager startAllSensorsWithSyncInterval:];
+
         double syncInterval = 60.0f;
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *syncInt = [userDefaults objectForKey:SETTING_SYNC_INT];
@@ -183,7 +184,7 @@
             syncInterval = [syncInt doubleValue] * 60.0f;
         }
         NSLog(@"Syncinterval = %f", syncInterval);
-        [sensorManager startAllSensorsWithSyncInterval:syncInterval];
+        [sensorManager startAllSensorsWithSyncInterval:syncInterval awareStudy:awareStudy];
     }];
     
 }
@@ -210,7 +211,7 @@
 - (IBAction)pushedSelectQRcode:(id)sender {
     NSOpenPanel* openDlg = [NSOpenPanel openPanel];
     [openDlg setCanChooseFiles:YES];
-    if([openDlg runModal] == NSOKButton){
+    if([openDlg runModal] == NSModalResponseOK){
         NSString *selectedFileName = [openDlg filename];
 //        NSLog(selectedFileName);
         NSImage *image = [[NSImage alloc] initWithContentsOfFile:selectedFileName];
@@ -240,7 +241,7 @@
             NSLog(@"%ld",result);
             if (result == 1000) {
                 // Connect to a AWARE server and set a study information
-                AWAREStudy *awareStudy = [[AWAREStudy alloc] init];
+//                AWAREStudy *awareStudy = [[AWAREStudy alloc] init];
                 bool result = [awareStudy setStudyInformationWithURL:url];
                 if(result){
                     NSAlert *alert = [NSAlert new];
@@ -254,7 +255,7 @@
                             syncInterval = [syncInt doubleValue] * 60.0f;
                         }
                         NSLog(@"Syncinterval = %f", syncInterval);
-                        [sensorManager startAllSensorsWithSyncInterval:syncInterval];
+                        [sensorManager startAllSensorsWithSyncInterval:syncInterval awareStudy:awareStudy];
                     }];
                     [self initStudyView];
                 }else{
