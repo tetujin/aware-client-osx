@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <ZXingObjC/ZXingObjC.h>
 #import "AWARESensorManager.h"
+#import <WebKit/WebKit.h>
 
 @interface PreferencesWindow : NSWindowController
 
@@ -18,9 +19,12 @@
 - (IBAction)pushedSensorsView:(id)sender;
 - (IBAction)pushedStudyButton:(id)sender;
 - (IBAction)pushedTrashButton:(id)sender;
+- (IBAction)pushedGoogleButton:(id)sender;
+
 @property (strong) IBOutlet NSView *awareView;
 @property (strong) IBOutlet NSView *studyView;
 @property (strong) IBOutlet NSView *sensorsView;
+@property (strong) IBOutlet NSView *googleView;
 
 /** AWARE View */
 - (IBAction)pushedDoneButton:(id)sender;
@@ -43,5 +47,9 @@
 @property (weak) IBOutlet NSTextField *webserviceUrl;
 @property (weak) IBOutlet NSTextField *mqttServerUrl;
 @property (weak) IBOutlet NSTextField *mqttUserName;
+
+/** Google View */
+//@property (weak) IBOutlet WebView *gooleOAuthView;
+@property (weak) IBOutlet WebView *googleOAuthView;
 
 @end

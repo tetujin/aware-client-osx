@@ -104,7 +104,7 @@
 }
 
 - (void) setLatestValue:(NSString *) valueStr{
-    NSLog(@"latest value is %@.", valueStr);
+//    NSLog(@"latest value is %@.", valueStr);
     latestSensorValue = valueStr;
 }
 
@@ -592,6 +592,5 @@
     NSDate *now = [[NSDate alloc] init];
     return [now timeIntervalSince1970];
 }
-
 
 @end

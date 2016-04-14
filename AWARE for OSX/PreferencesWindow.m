@@ -7,6 +7,12 @@
 //
 
 #import "PreferencesWindow.h"
+#import "GTMOAuth2WindowController.h"
+#import "GTMHTTPFetchHistory.h"
+#import "GTMOAuth2WindowController.h"
+#import "GTMOAuth2Authentication.h"
+#import "GTMOAuth2SignIn.h"
+#import "GTMHTTPFetcher.h"
 #import "AWAREStudy.h"
 #import "AWAREKeys.h"
 #import "AWARESensor.h"
@@ -20,6 +26,12 @@
     AWARESensorManager *sensorManager;
     AWAREStudy *awareStudy;
     NSTimer* sensorViewRefreshTimer;
+    
+    NSString *kKeychainItemName;
+    NSString *kMyClientID;     // pre-assigned by service
+    NSString *kMyClientSecret; // pre-assigned by service
+    NSString *scope; // scope for Google+ API
+
 }
 
 - (instancetype)initWithSensorManager:(AWARESensorManager* )manager awareStudy:(AWAREStudy *)study{
@@ -33,6 +45,11 @@
                                                                 userInfo:nil
                                                                  repeats:true];
         [sensorViewRefreshTimer invalidate];
+        kKeychainItemName = @"AWARE_Google_OAuth2";
+        kMyClientID = @"497863213223-5ucd3936hh7f37ap30kl3teeleen773k.apps.googleusercontent.com";     // pre-assigned by service
+        kMyClientSecret = @"a0re6JTqRzcYL4xC0zotwYM_"; // pre-assigned by service
+        scope = @"https://www.googleapis.com/auth/plus.me"; // scope for Google+ API
+
     }
     return self;
 }
@@ -42,6 +59,9 @@
     [self setPreferencesView:_awareView];
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
+
+
+
 
 - (IBAction)pushedAwareButton:(id)sender {
     [self setPreferencesView:_awareView];
@@ -62,6 +82,14 @@
     [self setPreferencesView:_studyView];
     [sensorViewRefreshTimer invalidate];
 }
+
+
+- (IBAction)pushedGoogleButton:(id)sender {
+    [self setPreferencesView:_googleView];
+    [sensorViewRefreshTimer invalidate];
+    [self initGoogleView];
+}
+
 
 - (IBAction)pushedTrashButton:(id)sender {
     NSLog(@"delete the current AWARE study!");
@@ -103,6 +131,7 @@
     [self initAwareView];
     [self initSensorsView];
     [self initStudyView];
+//    [self initGoogleView];
 }
 
 - (void) initAwareView {
@@ -145,6 +174,32 @@
         ;
         [_mqttServerUrl setStringValue:@"---"];
         [_mqttUserName setStringValue:@"---"];
+    }
+}
+
+
+- (void) initGoogleView {
+    GTMOAuth2WindowController *windowController;
+    windowController = [[GTMOAuth2WindowController alloc] initWithScope:scope
+                                                                clientID:kMyClientID
+                                                            clientSecret:kMyClientSecret
+                                                        keychainItemName:kKeychainItemName
+                                                          resourceBundle:nil];
+    
+    [windowController signInSheetModalForWindow:self.window
+                                 delegate:self
+                         finishedSelector:@selector(windowController:finishedWithAuth:error:)];
+}
+
+- (void)windowController:(GTMOAuth2WindowController *)windowController
+      finishedWithAuth:(GTMOAuth2Authentication *)finishedWithAuth
+                 error:(NSError *)error {
+    if (error != nil) {
+        // Sign-in failed
+        NSLog(@"Sign-in failded!");
+    } else {
+        // Sign-in succeeded
+        NSLog(@"Sign-in succeeded!");
     }
 }
 

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
@@ -13,6 +14,7 @@
                 <outlet property="deleteInterval" destination="LbW-Rk-7zD" id="ZiO-eG-Jhc"/>
                 <outlet property="deviceState" destination="12E-cS-wKU" id="0uW-du-zfL"/>
                 <outlet property="deviceUuid" destination="pwZ-NK-pKH" id="y85-lV-3bY"/>
+                <outlet property="googleView" destination="hmq-Nt-71I" id="v12-6U-2Yb"/>
                 <outlet property="keyAction" destination="Vma-l6-1ND" id="R9n-em-GQ4"/>
                 <outlet property="mouseClick" destination="60c-RV-GL7" id="7iW-aw-CHi"/>
                 <outlet property="mouseLocation" destination="4cG-NI-d9p" id="ZiQ-yk-Nzz"/>
@@ -32,7 +34,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="480" height="270"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -65,7 +67,11 @@
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="BAB64C96-BF6C-40D3-8E8B-7BD2B5850FF0" label="Database" paletteLabel="Database" tag="-1" image="db" id="PYB-wi-Yux"/>
-                    <toolbarItem implicitItemIdentifier="576812C6-A58F-4E6A-BC84-E0D05C59174C" label="Google" paletteLabel="Google" tag="-1" image="google_logo" id="D1W-Yl-g1T"/>
+                    <toolbarItem implicitItemIdentifier="576812C6-A58F-4E6A-BC84-E0D05C59174C" label="Google" paletteLabel="Google" tag="-1" image="google_logo" id="D1W-Yl-g1T">
+                        <connections>
+                            <action selector="pushedGoogleButton:" target="-2" id="eKl-lP-Rui"/>
+                        </connections>
+                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="A5C8E791-E2E6-41CF-9CD3-167D21EF9C6E" label="History" paletteLabel="History" tag="-1" image="combo_chart" id="9Q0-aC-kxp"/>
                     <toolbarItem implicitItemIdentifier="70EC0E6C-7C41-4BCC-BC6D-1272BA617DFC" label="Help" paletteLabel="Help" tag="-1" image="NSInfo" id="5Gd-he-oN1"/>
                 </allowedToolbarItems>
@@ -73,6 +79,7 @@
                     <toolbarItem reference="XPl-2p-gdQ"/>
                     <toolbarItem reference="pj6-4U-Ccy"/>
                     <toolbarItem reference="YZB-Z7-IHv"/>
+                    <toolbarItem reference="D1W-Yl-g1T"/>
                     <toolbarItem reference="9Q0-aC-kxp"/>
                     <toolbarItem reference="PYB-wi-Yux"/>
                     <toolbarItem reference="5Gd-he-oN1"/>
@@ -419,6 +426,11 @@ DQ
                 </box>
             </subviews>
             <point key="canvasLocation" x="353" y="704"/>
+        </customView>
+        <customView id="hmq-Nt-71I">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <point key="canvasLocation" x="1012" y="326"/>
         </customView>
     </objects>
     <resources>

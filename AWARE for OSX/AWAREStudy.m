@@ -8,6 +8,7 @@
 
 #import "AWAREStudy.h"
 #import "AWAREKeys.h"
+#import "SSLManager.h"
 
 @implementation AWAREStudy{
     NSString *crtUrl;
@@ -90,6 +91,8 @@
         if(responseCode == 0){
 //            NSString *url =  crtUrl;
 //            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+            SSLManager *sslManager = [[SSLManager alloc] init];
+            [sslManager installCRTWithTextOfQRCode:url];
         }else{
             NSArray *mqttArray = [NSJSONSerialization JSONObjectWithData:resData options:NSJSONReadingMutableContainers error:nil];
             id obj = [NSJSONSerialization JSONObjectWithData:resData options:NSJSONReadingMutableContainers error:nil];

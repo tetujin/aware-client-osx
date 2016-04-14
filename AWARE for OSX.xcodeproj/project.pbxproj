@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		160794471C1923720021816F /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 160794461C1923720021816F /* Settings.bundle */; };
+		160794531C1B7C0B0021816F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 160794521C1B7C0B0021816F /* Security.framework */; };
+		160794551C1B7C160021816F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 160794541C1B7C160021816F /* SystemConfiguration.framework */; };
+		160794571C1B821C0021816F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 160794561C1B821C0021816F /* WebKit.framework */; };
 		164FC5F41C1298F300F77893 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC5F31C1298F300F77893 /* AppDelegate.m */; };
 		164FC5F71C1298F300F77893 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC5F61C1298F300F77893 /* main.m */; };
 		164FC5FC1C1298F300F77893 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 164FC5FB1C1298F300F77893 /* Assets.xcassets */; };
@@ -24,6 +28,8 @@
 		164FC6431C1348E700F77893 /* AWAREKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC6421C1348E700F77893 /* AWAREKeys.m */; };
 		164FC6461C13765B00F77893 /* AWARESensorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC6451C13765B00F77893 /* AWARESensorManager.m */; };
 		164FC6491C13D0C100F77893 /* AWAREPcMouseLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC6481C13D0C100F77893 /* AWAREPcMouseLocation.m */; };
+		168639031C49AAA00058E3D1 /* SSLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 168639021C49AAA00058E3D1 /* SSLManager.m */; };
+		168639051C49B0550058E3D1 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168639041C49B0550058E3D1 /* AppKit.framework */; };
 		744E05EFC3A49374938E0467 /* libPods-AWARE for OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 984B4EBC6B5DDCD9F7164FA2 /* libPods-AWARE for OSX.a */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +51,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		160794461C1923720021816F /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		160794521C1B7C0B0021816F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		160794541C1B7C160021816F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		160794561C1B821C0021816F /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		164FC5EF1C1298F300F77893 /* AWARE for OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AWARE for OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		164FC5F21C1298F300F77893 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		164FC5F31C1298F300F77893 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -80,6 +90,9 @@
 		164FC6471C13D0C100F77893 /* AWAREPcMouseLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWAREPcMouseLocation.h; sourceTree = "<group>"; };
 		164FC6481C13D0C100F77893 /* AWAREPcMouseLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWAREPcMouseLocation.m; sourceTree = "<group>"; };
 		164FC64A1C14DE0800F77893 /* AWARE for OSX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "AWARE for OSX.entitlements"; sourceTree = "<group>"; };
+		168639011C49AAA00058E3D1 /* SSLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLManager.h; sourceTree = "<group>"; };
+		168639021C49AAA00058E3D1 /* SSLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLManager.m; sourceTree = "<group>"; };
+		168639041C49B0550058E3D1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		20A22747A29EF2B62F396627 /* Pods-AWARE for OSX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AWARE for OSX.release.xcconfig"; path = "Pods/Target Support Files/Pods-AWARE for OSX/Pods-AWARE for OSX.release.xcconfig"; sourceTree = "<group>"; };
 		850500E5826D4BED0EE287CF /* Pods-AWARE for OSX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AWARE for OSX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AWARE for OSX/Pods-AWARE for OSX.debug.xcconfig"; sourceTree = "<group>"; };
 		984B4EBC6B5DDCD9F7164FA2 /* libPods-AWARE for OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AWARE for OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +103,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				168639051C49B0550058E3D1 /* AppKit.framework in Frameworks */,
+				160794571C1B821C0021816F /* WebKit.framework in Frameworks */,
+				160794551C1B7C160021816F /* SystemConfiguration.framework in Frameworks */,
+				160794531C1B7C0B0021816F /* Security.framework in Frameworks */,
 				744E05EFC3A49374938E0467 /* libPods-AWARE for OSX.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -111,6 +128,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		160794431C1922380021816F /* AWARE */ = {
+			isa = PBXGroup;
+			children = (
+				164FC62E1C1347C100F77893 /* AWAREStudy.h */,
+				164FC62F1C1347C100F77893 /* AWAREStudy.m */,
+				164FC6441C13765B00F77893 /* AWARESensorManager.h */,
+				164FC6451C13765B00F77893 /* AWARESensorManager.m */,
+				164FC6411C1348E700F77893 /* AWAREKeys.h */,
+				164FC6421C1348E700F77893 /* AWAREKeys.m */,
+				168639011C49AAA00058E3D1 /* SSLManager.h */,
+				168639021C49AAA00058E3D1 /* SSLManager.m */,
+				164FC6401C1348AC00F77893 /* AWARESensors */,
+			);
+			name = AWARE;
+			sourceTree = "<group>";
+		};
 		164FC5E61C1298F300F77893 = {
 			isa = PBXGroup;
 			children = (
@@ -141,18 +174,13 @@
 				164FC5F31C1298F300F77893 /* AppDelegate.m */,
 				164FC6291C12C68600F77893 /* PreferencesWindow.h */,
 				164FC62A1C12C68600F77893 /* PreferencesWindow.m */,
-				164FC62E1C1347C100F77893 /* AWAREStudy.h */,
-				164FC62F1C1347C100F77893 /* AWAREStudy.m */,
-				164FC6441C13765B00F77893 /* AWARESensorManager.h */,
-				164FC6451C13765B00F77893 /* AWARESensorManager.m */,
-				164FC6411C1348E700F77893 /* AWAREKeys.h */,
-				164FC6421C1348E700F77893 /* AWAREKeys.m */,
-				164FC6401C1348AC00F77893 /* AWARESensors */,
+				160794431C1922380021816F /* AWARE */,
 				164FC62B1C12C68600F77893 /* PreferencesWindow.xib */,
 				164FC5FB1C1298F300F77893 /* Assets.xcassets */,
 				164FC5FD1C1298F300F77893 /* Main.storyboard */,
 				164FC6001C1298F300F77893 /* Info.plist */,
 				164FC5F51C1298F300F77893 /* Supporting Files */,
+				160794461C1923720021816F /* Settings.bundle */,
 			);
 			path = "AWARE for OSX";
 			sourceTree = "<group>";
@@ -205,6 +233,10 @@
 		AD18BBA80B368297A4C018D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				168639041C49B0550058E3D1 /* AppKit.framework */,
+				160794561C1B821C0021816F /* WebKit.framework */,
+				160794541C1B7C160021816F /* SystemConfiguration.framework */,
+				160794521C1B7C0B0021816F /* Security.framework */,
 				984B4EBC6B5DDCD9F7164FA2 /* libPods-AWARE for OSX.a */,
 			);
 			name = Frameworks;
@@ -331,6 +363,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				160794471C1923720021816F /* Settings.bundle in Resources */,
 				164FC5FC1C1298F300F77893 /* Assets.xcassets in Resources */,
 				164FC62D1C12C68600F77893 /* PreferencesWindow.xib in Resources */,
 				164FC5FF1C1298F300F77893 /* Main.storyboard in Resources */,
@@ -415,6 +448,7 @@
 				164FC5F41C1298F300F77893 /* AppDelegate.m in Sources */,
 				164FC6331C1347D400F77893 /* AWARESensor.m in Sources */,
 				164FC62C1C12C68600F77893 /* PreferencesWindow.m in Sources */,
+				168639031C49AAA00058E3D1 /* SSLManager.m in Sources */,
 				164FC6391C13483500F77893 /* AWAREPcMouseClick.m in Sources */,
 				164FC6431C1348E700F77893 /* AWAREKeys.m in Sources */,
 				164FC6361C13481C00F77893 /* AWAREPcApp.m in Sources */,

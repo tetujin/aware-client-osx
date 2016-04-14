@@ -7,6 +7,7 @@ target 'AWARE for OSX' do
 pod 'ZXingObjC'
 #pod 'MQTTClient'
 pod 'SCNetworkReachability'
+pod 'gtm-oauth2'
 end
 
 target 'AWARE for OSXTests' do
@@ -15,5 +16,10 @@ end
 
 target 'AWARE for OSXUITests' do
 
+end
+
+post_install do | installer |
+    require 'fileutils'
+    FileUtils.cp_r('Pods/Target Support Files/Pods-AWARE for OSX/Pods-AWARE for OSX-acknowledgements.plist', 'AWARE for OSX/Settings.bundle/Acknowledgements.plist', :remove_destination => true)
 end
 

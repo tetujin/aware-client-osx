@@ -92,23 +92,13 @@
         double syncInterval = 60.0f;
         study = [[AWAREStudy alloc] init];
         if ([study isAvailable]) {
-//            [_deviceUuid setStringValue:[awareStudy getMqttUserName]];
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             NSString *syncInt = [userDefaults objectForKey:SETTING_SYNC_INT];
             if (syncInt != nil) {
                 syncInterval = [syncInt doubleValue] * 60.0f;
             }
-//            BOOL state = [userDefaults boolForKey:SETTING_DEBUG_STATE];
-//            [_debugState setState:state];
-//            
-//            NSNumber *n = [userDefaults objectForKey:SETTING_DELETE_INT];
-//            if(n != nil){
-//                [_deleteInterval selectItemAtIndex:[n intValue]];
-//            }
-
             [_sensorManager startAllSensorsWithSyncInterval:syncInterval awareStudy:study];
         } else {
-            
             NSAlert *alert = [NSAlert new];
             alert.messageText = @"Please join a AWARE study";
             alert.informativeText = [NSString stringWithFormat:@"Do you open a preference window?"];

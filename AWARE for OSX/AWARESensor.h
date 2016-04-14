@@ -16,7 +16,7 @@
 - (BOOL) stopSensor;
 @end
 
-@interface AWARESensor : NSObject <AWARESensorDelegate>
+@interface AWARESensor : NSObject <AWARESensorDelegate, NSURLConnectionDelegate>
 
 - (instancetype) initWithSensorName:(NSString *) sensorName awareStudy:(AWAREStudy *) study;
 
@@ -75,5 +75,7 @@
 - (NSString *) getSensorName;
 
 - (double) getCurrentUnixtime;
+
++ (SecCertificateRef)sslCertificate;
 
 @end
