@@ -106,7 +106,8 @@
                 [self initAwareView];
                 [self initSensorsView];
                 [self initStudyView];
-                [sensorManager stopAllSensors];
+                [sensorManager stopAndRemoveAllSensors];
+                [sensorManager stopSyncTimer];
             }
         } else {
             
@@ -239,7 +240,8 @@
             syncInterval = [syncInt doubleValue] * 60.0f;
         }
         NSLog(@"Syncinterval = %f", syncInterval);
-        [sensorManager startAllSensorsWithSyncInterval:syncInterval awareStudy:awareStudy];
+        [sensorManager startAllSensorsWithStudy:awareStudy];
+        [sensorManager startSyncTimer:syncInterval];
     }];
     
 }
@@ -310,7 +312,7 @@
                             syncInterval = [syncInt doubleValue] * 60.0f;
                         }
                         NSLog(@"Syncinterval = %f", syncInterval);
-                        [sensorManager startAllSensorsWithSyncInterval:syncInterval awareStudy:awareStudy];
+                        [sensorManager startAllSensors];
                     }];
                     [self initStudyView];
                 }else{

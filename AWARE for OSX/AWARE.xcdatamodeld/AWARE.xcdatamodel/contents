@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+    <entity name="AppUsageEntity" representedClassName="AppUsageEntity" syncable="YES">
+        <attribute name="application" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="device_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="label" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="KeyboardEntity" representedClassName="KeyboardEntity" syncable="YES">
+        <attribute name="device_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="key_code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="key_down" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="MouseClickEntity" representedClassName="MouseClickEntity" syncable="YES">
+        <attribute name="button" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="device_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="label" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="MouseLocationEntity" representedClassName="MouseLocationEntity" syncable="YES">
+        <attribute name="device_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="x" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="y" optional="YES" attributeType="Double" syncable="YES"/>
+    </entity>
+    <entity name="PcUsageEntity" representedClassName="PcUsageEntity" syncable="YES">
+        <attribute name="device_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="label" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="AppUsageEntity" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="MouseClickEntity" positionX="-36" positionY="54" width="128" height="105"/>
+        <element name="MouseLocationEntity" positionX="-63" positionY="9" width="128" height="105"/>
+        <element name="KeyboardEntity" positionX="-36" positionY="63" width="128" height="30"/>
+        <element name="PcUsageEntity" positionX="-27" positionY="63" width="128" height="105"/>
+    </elements>
+</model>

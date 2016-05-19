@@ -7,21 +7,27 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AWARESensor.h"
+#import "AWAREStudy.h"
 
-@interface AWARESensorManager : NSObject{
-    NSMutableArray* awareSensors;
-}
+@interface AWARESensorManager : NSObject
 
-- (void) startAllSensorsWithSyncInterval:(double) interval awareStudy:(AWAREStudy *)study;
-- (void) stopAllSensors;
+/** Initializer */
+- (instancetype)initWithAWAREStudy:(AWAREStudy *) study;
+
 - (void) stopASensor:(NSString *) sensorName;
-- (void) addNewSensor:(AWARESensor *) sensor;
-- (bool)addNewSensor:(NSString *)sensorName withSyncInterval:(double)interval awareStudy:(AWAREStudy *)study;
-//- (bool) addNewSensorWithSensorName:(NSString *)sensorName
-//                           settings:(NSArray*)settings
-//                            plugins:(NSArray*)plugins
-//                     uploadInterval:(double) uploadTime;
+//- (void) addNewSensor:(AWARESensor *) sensor;
+//- (bool) addNewSensor:(NSString *)sensorName withSyncInterval:(double)interval awareStudy:(AWAREStudy *)study;
 - (NSString*)getLatestSensorData:(NSString *)sensorName;
+
+- (bool) syncAllSensorsWithDBInForeground;
+- (bool) syncAllSensorsWithDBInBackground;
+
+- (void) stopAndRemoveAllSensors;
+- (void) startAllSensorsWithStudy:(AWAREStudy *) study;
+- (void) startAllSensors;
+- (BOOL) createAllTables;
+
+- (void) startSyncTimer:(double)interval;
+- (void) stopSyncTimer;
 
 @end

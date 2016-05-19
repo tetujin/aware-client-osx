@@ -5,7 +5,6 @@
 
 target 'AWARE for OSX' do
 pod 'ZXingObjC'
-#pod 'MQTTClient'
 pod 'SCNetworkReachability'
 pod 'gtm-oauth2'
 end

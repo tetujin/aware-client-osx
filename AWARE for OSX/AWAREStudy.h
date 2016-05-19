@@ -8,13 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AWAREStudy : NSObject
+@interface AWAREStudy : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate, NSURLSessionDataDelegate, NSURLSessionTaskDelegate>
+
+@property (strong, nonatomic) NSString* getSettingIdentifier;
+@property (strong, nonatomic) NSString* makeDeviceTableIdentifier;
+@property (strong, nonatomic) NSString* addDeviceTableIdentifier;
+
 
 - (BOOL) setStudyInformationWithURL:(NSString*)url;
+- (BOOL) refreshStudy;
+- (BOOL) clearAllSetting;
 
 // for check
 - (BOOL) isAvailable;
-- (BOOL) clearAllSetting;
+- (bool) isReachable;
 
 // MQTT Information
 - (NSString* ) getMqttServer;
@@ -31,5 +38,6 @@
 // Sensor Infromation
 - (NSArray *) getSensors;
 - (NSArray *) getPlugins;
+- (NSString *) getDeviceId;
 
 @end

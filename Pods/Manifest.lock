@@ -3,9 +3,9 @@ PODS:
   - gtm-oauth2 (1.0.126):
     - gtm-http-fetcher (~> 1.0.141)
   - macros_blocks (0.0.1)
-  - SCNetworkReachability (2.0.4):
-    - SCNetworkReachability/Core (= 2.0.4)
-  - SCNetworkReachability/Core (2.0.4):
+  - SCNetworkReachability (2.0.5):
+    - SCNetworkReachability/Core (= 2.0.5)
+  - SCNetworkReachability/Core (2.0.5):
     - macros_blocks (= 0.0.1)
   - ZXingObjC (3.1.0):
     - ZXingObjC/All (= 3.1.0)
@@ -20,7 +20,7 @@ SPEC CHECKSUMS:
   gtm-http-fetcher: 6d4617e7d343b6e4c082b777541c334eb6f5d81e
   gtm-oauth2: 2a18b824e4f8a02df6cfe987beb59ae9d9697f9d
   macros_blocks: da2106a0975514e16f3669f2f50a02efaff642cf
-  SCNetworkReachability: 4d836180e9ef916da4ef68a34fec748f88950712
+  SCNetworkReachability: 14026e754d9abb264c157131539e8e2c2131cb62
   ZXingObjC: bf15b3814f7a105b6d99f47da2333c93a063650a
 
 COCOAPODS: 0.39.0

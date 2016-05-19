@@ -20,6 +20,7 @@ NSString* const KEY_MQTT_PORT = @"mqtt_port";
 NSString* const KEY_MQTT_KEEP_ALIVE = @"mqtt_keep_alive";
 NSString* const KEY_MQTT_QOS = @"mqtt_qos";
 NSString* const KEY_STUDY_ID = @"study_id";
+NSString* const KEY_STUDY_QR_CODE = @"study_qr_code";
 NSString* const KEY_WEBSERVICE_SERVER = @"webservice_server";
 
 NSString* const SETTING_DEBUG_STATE = @"setting_debug_state";

@@ -20,6 +20,7 @@ extern NSString* const KEY_MQTT_PORT;
 extern NSString* const KEY_MQTT_KEEP_ALIVE;
 extern NSString* const KEY_MQTT_QOS;
 extern NSString* const KEY_STUDY_ID;
+extern NSString* const KEY_STUDY_QR_CODE;
 extern NSString* const KEY_API;
 extern NSString* const KEY_WEBSERVICE_SERVER;
 
