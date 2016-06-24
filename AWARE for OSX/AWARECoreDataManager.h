@@ -9,19 +9,24 @@
 #import <Foundation/Foundation.h>
 #import "AWAREStudy.h"
 #import "AppDelegate.h"
-#import "AWAREKeys.h"
-#import "AWAREUtils.h"
+#import "AWAREUploader.h"
 
-@interface AWARECoreDataManager : NSObject <NSURLSessionDelegate,  NSURLSessionDataDelegate, NSURLSessionTaskDelegate>
+typedef enum: NSInteger {
+    AwareDBConditionNormal = 0,
+    AwareDBConditionInserting = 1,
+    AwareDBConditionUpDating = 3,
+    AwareDBConditionCounting = 4,
+    AwareDBConditionFetching = 5,
+    AwareDBConditionDeleting = 6
+} AwareDBCondition;
 
-- (instancetype) initWithSensorName:(NSString *)name
-                          entityName:(NSString*)entity
-                         awareStudy:(AWAREStudy *) study;
 
-- (void) setFetchLimit:(int)limit;
-- (void) setFetchBatchSize:(int)size;
-- (void) syncDBInBackground;
-- (void) syncDBInForeground;
-- (NSString *) getEntityName;
+@interface AWARECoreDataManager : AWAREUploader <AWAREDataUploaderDelegate, NSURLSessionDataDelegate, NSURLSessionTaskDelegate>
+
+- (instancetype)initWithAwareStudy:(AWAREStudy *)study
+                        sensorName:(NSString *)name
+                      dbEntityName:(NSString *)entity;
+
+@property NSManagedObjectContext *mainQueueManagedObjectContext;
 
 @end

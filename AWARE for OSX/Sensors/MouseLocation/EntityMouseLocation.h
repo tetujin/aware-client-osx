@@ -1,8 +1,8 @@
 //
-//  MouseClickEntity.h
+//  EntityMouseLocation.h
 //  AWARE for OSX
 //
-//  Created by Yuuki Nishiyama on 5/17/16.
+//  Created by Yuuki Nishiyama on 6/22/16.
 //  Copyright © 2016 Yuuki NISHIYAMA. All rights reserved.
 //
 
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MouseClickEntity : NSManagedObject
+@interface EntityMouseLocation : NSManagedObject
 
 // Insert code here to declare functionality of your managed object subclass
 
@@ -19,4 +19,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-#import "MouseClickEntity+CoreDataProperties.h"
+#import "EntityMouseLocation+CoreDataProperties.h"

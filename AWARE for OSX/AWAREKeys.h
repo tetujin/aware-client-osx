@@ -28,7 +28,7 @@ extern NSString* const SETTING_DEBUG_STATE;
 extern NSString *const SETTING_SYNC_WIFI_ONLY;
 extern NSString* const SETTING_SYNC_INT;
 extern NSString* const SETTING_DELETE_INT;
-
+extern NSString* const SETTING_SYNC_BATTERY_CHARGING_ONLY;
 
 extern NSString* const TABLE_INSER;
 extern NSString* const TABLE_LATEST;

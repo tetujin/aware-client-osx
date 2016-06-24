@@ -1,14 +1,14 @@
 //
-//  AppUsageEntity.m
+//  EntityMouseLocation.m
 //  AWARE for OSX
 //
-//  Created by Yuuki Nishiyama on 5/17/16.
+//  Created by Yuuki Nishiyama on 6/22/16.
 //  Copyright © 2016 Yuuki NISHIYAMA. All rights reserved.
 //
 
-#import "AppUsageEntity.h"
+#import "EntityMouseLocation.h"
 
-@implementation AppUsageEntity
+@implementation EntityMouseLocation
 
 // Insert code here to add functionality to your managed object subclass
 

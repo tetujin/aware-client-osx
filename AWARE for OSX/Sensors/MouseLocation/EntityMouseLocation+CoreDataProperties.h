@@ -1,24 +1,24 @@
 //
-//  AppUsageEntity+CoreDataProperties.h
+//  EntityMouseLocation+CoreDataProperties.h
 //  AWARE for OSX
 //
-//  Created by Yuuki Nishiyama on 5/17/16.
+//  Created by Yuuki Nishiyama on 6/22/16.
 //  Copyright © 2016 Yuuki NISHIYAMA. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "AppUsageEntity.h"
+#import "EntityMouseLocation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AppUsageEntity (CoreDataProperties)
+@interface EntityMouseLocation (CoreDataProperties)
 
-@property (nullable, nonatomic, retain) NSNumber *timestamp;
 @property (nullable, nonatomic, retain) NSString *device_id;
-@property (nullable, nonatomic, retain) NSString *application;
-@property (nullable, nonatomic, retain) NSString *label;
+@property (nullable, nonatomic, retain) NSNumber *timestamp;
+@property (nullable, nonatomic, retain) NSNumber *x;
+@property (nullable, nonatomic, retain) NSNumber *y;
 
 @end
 

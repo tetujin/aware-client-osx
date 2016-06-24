@@ -1,14 +1,14 @@
 //
-//  KeyboardEntity.m
+//  EntityKeyboard.m
 //  AWARE for OSX
 //
-//  Created by Yuuki Nishiyama on 5/18/16.
+//  Created by Yuuki Nishiyama on 6/22/16.
 //  Copyright © 2016 Yuuki NISHIYAMA. All rights reserved.
 //
 
-#import "KeyboardEntity.h"
+#import "EntityKeyboard.h"
 
-@implementation KeyboardEntity
+@implementation EntityKeyboard
 
 // Insert code here to add functionality to your managed object subclass
 

@@ -1,14 +1,14 @@
 //
-//  MouseClickEntity.m
+//  EntityMouseClick.m
 //  AWARE for OSX
 //
-//  Created by Yuuki Nishiyama on 5/17/16.
+//  Created by Yuuki Nishiyama on 6/22/16.
 //  Copyright © 2016 Yuuki NISHIYAMA. All rights reserved.
 //
 
-#import "MouseClickEntity.h"
+#import "EntityMouseClick.h"
 
-@implementation MouseClickEntity
+@implementation EntityMouseClick
 
 // Insert code here to add functionality to your managed object subclass
 

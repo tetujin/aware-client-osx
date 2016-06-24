@@ -141,7 +141,7 @@
 
 - (bool)syncAllSensorsWithDBInBackground{
     for (AWARESensor* sensor in awareSensors) {
-        [sensor syncDBInBackground];
+        [sensor syncAwareDBInBackground];
     }
     return NO;
 }
@@ -149,7 +149,7 @@
 
 - (bool)syncAllSensorsWithDBInForeground{
     for (AWARESensor* sensor in awareSensors) {
-        [sensor syncDBInForeground];
+        [sensor syncAwareDBInForeground];
     }
     return NO;
 }

@@ -7,25 +7,28 @@
 //
 
 #import "AWAREPcMouseLocation.h"
-#import "MouseLocationEntity.h"
+#import "EntityMouseLocation.h"
+#import "AWAREUtils.h"
 
 @implementation AWAREPcMouseLocation{
     NSTimer *sensingTimer;
     NSPoint pastMouseLocation;
     double lastUpdateTime;
-    int bufferSize;
-    int currentBufferCount;
+//    int bufferSize;
+//    int currentBufferCount;
 }
 
 - (instancetype)initWithSensorName:(NSString *)name
                         entityName:(NSString *)entity
                         awareStudy:(AWAREStudy *)study{
-    self = [super initWithSensorName:name entityName:NSStringFromClass([MouseLocationEntity class]) awareStudy:study];
+    self = [super initWithSensorName:name
+                          entityName:NSStringFromClass([EntityMouseLocation class])
+                          awareStudy:study];
     if (self) {
         [super setSensorName:name];
         pastMouseLocation = [NSEvent mouseLocation];
-        bufferSize = 100;
-        currentBufferCount = 0;
+//        bufferSize = 100;
+//        currentBufferCount = 0;
     }
     return self;
 }
@@ -48,7 +51,7 @@
     NSLog(@"Start Mouse Location Sensing on Mac OSX !");
     
     [self setFetchLimit:300];
-    
+    [self setBufferSize:100];
     sensingTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f
                                                  target:self
                                                selector:@selector(getMouseLocation)
@@ -78,22 +81,23 @@
                               mouseLocation.y]];
         
         AppDelegate *delegate=(AppDelegate*)[NSApplication sharedApplication].delegate;
-        MouseLocationEntity *entity = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([MouseLocationEntity class])
+        EntityMouseLocation *entity = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([EntityMouseLocation class])
                                                                  inManagedObjectContext:delegate.managedObjectContext];
         entity.timestamp = unixtime;
         entity.device_id = [self getDeviceId];
         entity.x = [NSNumber numberWithFloat:mouseLocation.x];
         entity.y = [NSNumber numberWithFloat:mouseLocation.y];
         
-        if(currentBufferCount > bufferSize){
-            NSError * error = nil;
-            [delegate.managedObjectContext save:&error];
-            if (error != nil) {
-                NSLog(@"Error: %@", error.debugDescription);
-            }
-            currentBufferCount = 0;
-        }
-        currentBufferCount ++;
+        [self saveDataToDB];
+//        if(currentBufferCount > bufferSize){
+//            NSError * error = nil;
+//            [delegate.managedObjectContext save:&error];
+//            if (error != nil) {
+//                NSLog(@"Error: %@", error.debugDescription);
+//            }
+//            currentBufferCount = 0;
+//        }
+//        currentBufferCount ++;
     }
     pastMouseLocation = mouseLocation;
     return mouseLocation;

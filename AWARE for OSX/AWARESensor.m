@@ -9,6 +9,7 @@
 #import "AWARESensor.h"
 #import "AWAREKeys.h"
 #import "AWAREStudy.h"
+#import "AWAREUtils.h"
 
 @implementation AWARESensor {
     int bufferLimit;
@@ -29,7 +30,7 @@
 - (instancetype) initWithSensorName:(NSString *)name
                          entityName:(NSString*)entity
                          awareStudy:(AWAREStudy *) study{
-    if (self = [super initWithSensorName:name entityName:entity awareStudy:study]) {
+    if (self = [super initWithAwareStudy:study sensorName:name dbEntityName:entity]) {
         NSLog(@"[%@] Initialize an AWARESensor as '%@' ", name, name);
         awareSensorName = name;
         bufferLimit = 0;
@@ -62,7 +63,7 @@
 //////////////////////////////////////////
 /////////////////////////////////////////
 - (void) syncAwareDB {
-    [super syncDBInBackground];
+    [super syncAwareDBInBackground];
 }
 
 //////////////////////////////////////////

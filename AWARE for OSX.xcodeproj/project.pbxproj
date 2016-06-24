@@ -27,20 +27,21 @@
 		164FC6301C1347C100F77893 /* AWAREStudy.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC62F1C1347C100F77893 /* AWAREStudy.m */; };
 		164FC6331C1347D400F77893 /* AWARESensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC6321C1347D400F77893 /* AWARESensor.m */; };
 		164FC6431C1348E700F77893 /* AWAREKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC6421C1348E700F77893 /* AWAREKeys.m */; };
-		164FC6461C13765B00F77893 /* AWARESensorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 164FC6451C13765B00F77893 /* AWARESensorManager.m */; };
-		166D85221CEB713800D7C2B7 /* KeyboardEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 166D851F1CEB713800D7C2B7 /* KeyboardEntity+CoreDataProperties.m */; };
-		166D85231CEB713800D7C2B7 /* KeyboardEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 166D85211CEB713800D7C2B7 /* KeyboardEntity.m */; };
-		166D85281CEB732000D7C2B7 /* PcUsageEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 166D85251CEB732000D7C2B7 /* PcUsageEntity+CoreDataProperties.m */; };
-		166D85291CEB732000D7C2B7 /* PcUsageEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 166D85271CEB732000D7C2B7 /* PcUsageEntity.m */; };
 		168639031C49AAA00058E3D1 /* SSLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 168639021C49AAA00058E3D1 /* SSLManager.m */; };
 		168639051C49B0550058E3D1 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168639041C49B0550058E3D1 /* AppKit.framework */; };
-		16887D5A1CEAF62C0071E59F /* AppUsageEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 16887D571CEAF62C0071E59F /* AppUsageEntity+CoreDataProperties.m */; };
-		16887D5B1CEAF62C0071E59F /* AppUsageEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 16887D591CEAF62C0071E59F /* AppUsageEntity.m */; };
-		16887D601CEB0D0E0071E59F /* MouseLocationEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 16887D5D1CEB0D0E0071E59F /* MouseLocationEntity+CoreDataProperties.m */; };
-		16887D611CEB0D0E0071E59F /* MouseLocationEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 16887D5F1CEB0D0E0071E59F /* MouseLocationEntity.m */; };
-		16887D681CEB191F0071E59F /* MouseClickEntity+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 16887D651CEB191F0071E59F /* MouseClickEntity+CoreDataProperties.m */; };
-		16887D691CEB191F0071E59F /* MouseClickEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 16887D671CEB191F0071E59F /* MouseClickEntity.m */; };
-		16F2DB961CEA2A9200A89EBF /* AWARECoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F2DB951CEA2A9200A89EBF /* AWARECoreDataManager.m */; };
+		16B077D71D1AA139009C070B /* AWARECoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B077D61D1AA139009C070B /* AWARECoreDataManager.m */; };
+		16B077DA1D1AA16E009C070B /* AWAREUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B077D91D1AA16E009C070B /* AWAREUploader.m */; };
+		16B077E31D1AA714009C070B /* AWARESensorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B077E21D1AA714009C070B /* AWARESensorManager.m */; };
+		16B077EE1D1AAA92009C070B /* EntityAppUsage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B077EB1D1AAA92009C070B /* EntityAppUsage+CoreDataProperties.m */; };
+		16B077EF1D1AAA92009C070B /* EntityAppUsage.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B077ED1D1AAA92009C070B /* EntityAppUsage.m */; };
+		16B077F41D1AAABF009C070B /* EntityMouseClick+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B077F11D1AAABE009C070B /* EntityMouseClick+CoreDataProperties.m */; };
+		16B077F51D1AAABF009C070B /* EntityMouseClick.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B077F31D1AAABF009C070B /* EntityMouseClick.m */; };
+		16B077FA1D1AAADF009C070B /* EntityMouseLocation+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B077F71D1AAADF009C070B /* EntityMouseLocation+CoreDataProperties.m */; };
+		16B077FB1D1AAADF009C070B /* EntityMouseLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B077F91D1AAADF009C070B /* EntityMouseLocation.m */; };
+		16B078001D1AAB38009C070B /* EntityKeyboard+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B077FD1D1AAB38009C070B /* EntityKeyboard+CoreDataProperties.m */; };
+		16B078011D1AAB38009C070B /* EntityKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B077FF1D1AAB38009C070B /* EntityKeyboard.m */; };
+		16B078061D1AAB77009C070B /* EntityPcUsage+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B078031D1AAB77009C070B /* EntityPcUsage+CoreDataProperties.m */; };
+		16B078071D1AAB77009C070B /* EntityPcUsage.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B078051D1AAB77009C070B /* EntityPcUsage.m */; };
 		16F2DB991CEA2B9300A89EBF /* AWAREUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F2DB981CEA2B9300A89EBF /* AWAREUtils.m */; };
 		16F2DB9C1CEA2F7800A89EBF /* AWARE.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 16F2DB9A1CEA2F7800A89EBF /* AWARE.xcdatamodeld */; };
 		744E05EFC3A49374938E0467 /* libPods-AWARE for OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 984B4EBC6B5DDCD9F7164FA2 /* libPods-AWARE for OSX.a */; };
@@ -100,36 +101,38 @@
 		164FC6321C1347D400F77893 /* AWARESensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWARESensor.m; sourceTree = "<group>"; };
 		164FC6411C1348E700F77893 /* AWAREKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWAREKeys.h; sourceTree = "<group>"; };
 		164FC6421C1348E700F77893 /* AWAREKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWAREKeys.m; sourceTree = "<group>"; };
-		164FC6441C13765B00F77893 /* AWARESensorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWARESensorManager.h; sourceTree = "<group>"; };
-		164FC6451C13765B00F77893 /* AWARESensorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWARESensorManager.m; sourceTree = "<group>"; };
 		164FC64A1C14DE0800F77893 /* AWARE for OSX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "AWARE for OSX.entitlements"; sourceTree = "<group>"; };
-		166D851E1CEB713800D7C2B7 /* KeyboardEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "KeyboardEntity+CoreDataProperties.h"; path = "Sensors/Keyboard/KeyboardEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
-		166D851F1CEB713800D7C2B7 /* KeyboardEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "KeyboardEntity+CoreDataProperties.m"; path = "Sensors/Keyboard/KeyboardEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
-		166D85201CEB713800D7C2B7 /* KeyboardEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyboardEntity.h; path = Sensors/Keyboard/KeyboardEntity.h; sourceTree = "<group>"; };
-		166D85211CEB713800D7C2B7 /* KeyboardEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyboardEntity.m; path = Sensors/Keyboard/KeyboardEntity.m; sourceTree = "<group>"; };
-		166D85241CEB732000D7C2B7 /* PcUsageEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PcUsageEntity+CoreDataProperties.h"; path = "Sensors/PcUsage/PcUsageEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
-		166D85251CEB732000D7C2B7 /* PcUsageEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PcUsageEntity+CoreDataProperties.m"; path = "Sensors/PcUsage/PcUsageEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
-		166D85261CEB732000D7C2B7 /* PcUsageEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcUsageEntity.h; path = Sensors/PcUsage/PcUsageEntity.h; sourceTree = "<group>"; };
-		166D85271CEB732000D7C2B7 /* PcUsageEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PcUsageEntity.m; path = Sensors/PcUsage/PcUsageEntity.m; sourceTree = "<group>"; };
 		166D852A1CEB73DD00D7C2B7 /* AWARE_20160518_004400.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AWARE_20160518_004400.xcdatamodel; sourceTree = "<group>"; };
 		168639011C49AAA00058E3D1 /* SSLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLManager.h; sourceTree = "<group>"; };
 		168639021C49AAA00058E3D1 /* SSLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLManager.m; sourceTree = "<group>"; };
 		168639041C49B0550058E3D1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		16887D561CEAF62C0071E59F /* AppUsageEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AppUsageEntity+CoreDataProperties.h"; path = "Sensors/AppUsage/AppUsageEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
-		16887D571CEAF62C0071E59F /* AppUsageEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AppUsageEntity+CoreDataProperties.m"; path = "Sensors/AppUsage/AppUsageEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
-		16887D581CEAF62C0071E59F /* AppUsageEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppUsageEntity.h; path = Sensors/AppUsage/AppUsageEntity.h; sourceTree = "<group>"; };
-		16887D591CEAF62C0071E59F /* AppUsageEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppUsageEntity.m; path = Sensors/AppUsage/AppUsageEntity.m; sourceTree = "<group>"; };
-		16887D5C1CEB0D0E0071E59F /* MouseLocationEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MouseLocationEntity+CoreDataProperties.h"; path = "Sensors/MouseLocation/MouseLocationEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
-		16887D5D1CEB0D0E0071E59F /* MouseLocationEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MouseLocationEntity+CoreDataProperties.m"; path = "Sensors/MouseLocation/MouseLocationEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
-		16887D5E1CEB0D0E0071E59F /* MouseLocationEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MouseLocationEntity.h; path = Sensors/MouseLocation/MouseLocationEntity.h; sourceTree = "<group>"; };
-		16887D5F1CEB0D0E0071E59F /* MouseLocationEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MouseLocationEntity.m; path = Sensors/MouseLocation/MouseLocationEntity.m; sourceTree = "<group>"; };
 		16887D621CEB0E7F0071E59F /* AWARE_20160517_173100.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AWARE_20160517_173100.xcdatamodel; sourceTree = "<group>"; };
-		16887D641CEB191F0071E59F /* MouseClickEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MouseClickEntity+CoreDataProperties.h"; path = "Sensors/MouseClick/MouseClickEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
-		16887D651CEB191F0071E59F /* MouseClickEntity+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MouseClickEntity+CoreDataProperties.m"; path = "Sensors/MouseClick/MouseClickEntity+CoreDataProperties.m"; sourceTree = "<group>"; };
-		16887D661CEB191F0071E59F /* MouseClickEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MouseClickEntity.h; path = Sensors/MouseClick/MouseClickEntity.h; sourceTree = "<group>"; };
-		16887D671CEB191F0071E59F /* MouseClickEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MouseClickEntity.m; path = Sensors/MouseClick/MouseClickEntity.m; sourceTree = "<group>"; };
-		16F2DB941CEA2A9200A89EBF /* AWARECoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWARECoreDataManager.h; sourceTree = "<group>"; };
-		16F2DB951CEA2A9200A89EBF /* AWARECoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWARECoreDataManager.m; sourceTree = "<group>"; };
+		16B077D51D1AA139009C070B /* AWARECoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWARECoreDataManager.h; sourceTree = "<group>"; };
+		16B077D61D1AA139009C070B /* AWARECoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWARECoreDataManager.m; sourceTree = "<group>"; };
+		16B077D81D1AA16E009C070B /* AWAREUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWAREUploader.h; sourceTree = "<group>"; };
+		16B077D91D1AA16E009C070B /* AWAREUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWAREUploader.m; sourceTree = "<group>"; };
+		16B077E11D1AA714009C070B /* AWARESensorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWARESensorManager.h; sourceTree = "<group>"; };
+		16B077E21D1AA714009C070B /* AWARESensorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWARESensorManager.m; sourceTree = "<group>"; };
+		16B077EA1D1AAA92009C070B /* EntityAppUsage+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "EntityAppUsage+CoreDataProperties.h"; path = "Sensors/AppUsage/EntityAppUsage+CoreDataProperties.h"; sourceTree = "<group>"; };
+		16B077EB1D1AAA92009C070B /* EntityAppUsage+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "EntityAppUsage+CoreDataProperties.m"; path = "Sensors/AppUsage/EntityAppUsage+CoreDataProperties.m"; sourceTree = "<group>"; };
+		16B077EC1D1AAA92009C070B /* EntityAppUsage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EntityAppUsage.h; path = Sensors/AppUsage/EntityAppUsage.h; sourceTree = "<group>"; };
+		16B077ED1D1AAA92009C070B /* EntityAppUsage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EntityAppUsage.m; path = Sensors/AppUsage/EntityAppUsage.m; sourceTree = "<group>"; };
+		16B077F01D1AAABE009C070B /* EntityMouseClick+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "EntityMouseClick+CoreDataProperties.h"; path = "Sensors/MouseClick/EntityMouseClick+CoreDataProperties.h"; sourceTree = "<group>"; };
+		16B077F11D1AAABE009C070B /* EntityMouseClick+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "EntityMouseClick+CoreDataProperties.m"; path = "Sensors/MouseClick/EntityMouseClick+CoreDataProperties.m"; sourceTree = "<group>"; };
+		16B077F21D1AAABF009C070B /* EntityMouseClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EntityMouseClick.h; path = Sensors/MouseClick/EntityMouseClick.h; sourceTree = "<group>"; };
+		16B077F31D1AAABF009C070B /* EntityMouseClick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EntityMouseClick.m; path = Sensors/MouseClick/EntityMouseClick.m; sourceTree = "<group>"; };
+		16B077F61D1AAADF009C070B /* EntityMouseLocation+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "EntityMouseLocation+CoreDataProperties.h"; path = "Sensors/MouseLocation/EntityMouseLocation+CoreDataProperties.h"; sourceTree = "<group>"; };
+		16B077F71D1AAADF009C070B /* EntityMouseLocation+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "EntityMouseLocation+CoreDataProperties.m"; path = "Sensors/MouseLocation/EntityMouseLocation+CoreDataProperties.m"; sourceTree = "<group>"; };
+		16B077F81D1AAADF009C070B /* EntityMouseLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EntityMouseLocation.h; path = Sensors/MouseLocation/EntityMouseLocation.h; sourceTree = "<group>"; };
+		16B077F91D1AAADF009C070B /* EntityMouseLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EntityMouseLocation.m; path = Sensors/MouseLocation/EntityMouseLocation.m; sourceTree = "<group>"; };
+		16B077FC1D1AAB38009C070B /* EntityKeyboard+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "EntityKeyboard+CoreDataProperties.h"; path = "Sensors/Keyboard/EntityKeyboard+CoreDataProperties.h"; sourceTree = "<group>"; };
+		16B077FD1D1AAB38009C070B /* EntityKeyboard+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "EntityKeyboard+CoreDataProperties.m"; path = "Sensors/Keyboard/EntityKeyboard+CoreDataProperties.m"; sourceTree = "<group>"; };
+		16B077FE1D1AAB38009C070B /* EntityKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EntityKeyboard.h; path = Sensors/Keyboard/EntityKeyboard.h; sourceTree = "<group>"; };
+		16B077FF1D1AAB38009C070B /* EntityKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EntityKeyboard.m; path = Sensors/Keyboard/EntityKeyboard.m; sourceTree = "<group>"; };
+		16B078021D1AAB77009C070B /* EntityPcUsage+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "EntityPcUsage+CoreDataProperties.h"; path = "Sensors/PcUsage/EntityPcUsage+CoreDataProperties.h"; sourceTree = "<group>"; };
+		16B078031D1AAB77009C070B /* EntityPcUsage+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "EntityPcUsage+CoreDataProperties.m"; path = "Sensors/PcUsage/EntityPcUsage+CoreDataProperties.m"; sourceTree = "<group>"; };
+		16B078041D1AAB77009C070B /* EntityPcUsage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EntityPcUsage.h; path = Sensors/PcUsage/EntityPcUsage.h; sourceTree = "<group>"; };
+		16B078051D1AAB77009C070B /* EntityPcUsage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EntityPcUsage.m; path = Sensors/PcUsage/EntityPcUsage.m; sourceTree = "<group>"; };
 		16F2DB971CEA2B9300A89EBF /* AWAREUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWAREUtils.h; sourceTree = "<group>"; };
 		16F2DB981CEA2B9300A89EBF /* AWAREUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWAREUtils.m; sourceTree = "<group>"; };
 		16F2DB9B1CEA2F7800A89EBF /* AWARE.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AWARE.xcdatamodel; sourceTree = "<group>"; };
@@ -173,8 +176,6 @@
 			children = (
 				164FC62E1C1347C100F77893 /* AWAREStudy.h */,
 				164FC62F1C1347C100F77893 /* AWAREStudy.m */,
-				164FC6441C13765B00F77893 /* AWARESensorManager.h */,
-				164FC6451C13765B00F77893 /* AWARESensorManager.m */,
 				164FC6411C1348E700F77893 /* AWAREKeys.h */,
 				164FC6421C1348E700F77893 /* AWAREKeys.m */,
 				168639011C49AAA00058E3D1 /* SSLManager.h */,
@@ -259,8 +260,12 @@
 			children = (
 				164FC6311C1347D400F77893 /* AWARESensor.h */,
 				164FC6321C1347D400F77893 /* AWARESensor.m */,
-				16F2DB941CEA2A9200A89EBF /* AWARECoreDataManager.h */,
-				16F2DB951CEA2A9200A89EBF /* AWARECoreDataManager.m */,
+				16B077D51D1AA139009C070B /* AWARECoreDataManager.h */,
+				16B077D61D1AA139009C070B /* AWARECoreDataManager.m */,
+				16B077E11D1AA714009C070B /* AWARESensorManager.h */,
+				16B077E21D1AA714009C070B /* AWARESensorManager.m */,
+				16B077D81D1AA16E009C070B /* AWAREUploader.h */,
+				16B077D91D1AA16E009C070B /* AWAREUploader.m */,
 				16887D511CEAE0990071E59F /* Apps */,
 				16887D521CEAE0B00071E59F /* MouseClick */,
 				16887D531CEAE0C50071E59F /* MouseLocation */,
@@ -275,10 +280,10 @@
 			children = (
 				163F84881CEBE4D000BB2FE9 /* AWAREPcApp.h */,
 				163F84891CEBE4D000BB2FE9 /* AWAREPcApp.m */,
-				16887D561CEAF62C0071E59F /* AppUsageEntity+CoreDataProperties.h */,
-				16887D571CEAF62C0071E59F /* AppUsageEntity+CoreDataProperties.m */,
-				16887D581CEAF62C0071E59F /* AppUsageEntity.h */,
-				16887D591CEAF62C0071E59F /* AppUsageEntity.m */,
+				16B077EA1D1AAA92009C070B /* EntityAppUsage+CoreDataProperties.h */,
+				16B077EB1D1AAA92009C070B /* EntityAppUsage+CoreDataProperties.m */,
+				16B077EC1D1AAA92009C070B /* EntityAppUsage.h */,
+				16B077ED1D1AAA92009C070B /* EntityAppUsage.m */,
 			);
 			name = Apps;
 			sourceTree = "<group>";
@@ -288,10 +293,10 @@
 			children = (
 				163F848B1CEBE4DE00BB2FE9 /* AWAREPcMouseClick.h */,
 				163F848C1CEBE4DE00BB2FE9 /* AWAREPcMouseClick.m */,
-				16887D641CEB191F0071E59F /* MouseClickEntity+CoreDataProperties.h */,
-				16887D651CEB191F0071E59F /* MouseClickEntity+CoreDataProperties.m */,
-				16887D661CEB191F0071E59F /* MouseClickEntity.h */,
-				16887D671CEB191F0071E59F /* MouseClickEntity.m */,
+				16B077F01D1AAABE009C070B /* EntityMouseClick+CoreDataProperties.h */,
+				16B077F11D1AAABE009C070B /* EntityMouseClick+CoreDataProperties.m */,
+				16B077F21D1AAABF009C070B /* EntityMouseClick.h */,
+				16B077F31D1AAABF009C070B /* EntityMouseClick.m */,
 			);
 			name = MouseClick;
 			sourceTree = "<group>";
@@ -301,10 +306,10 @@
 			children = (
 				163F848E1CEBE4E800BB2FE9 /* AWAREPcMouseLocation.h */,
 				163F848F1CEBE4E800BB2FE9 /* AWAREPcMouseLocation.m */,
-				16887D5C1CEB0D0E0071E59F /* MouseLocationEntity+CoreDataProperties.h */,
-				16887D5D1CEB0D0E0071E59F /* MouseLocationEntity+CoreDataProperties.m */,
-				16887D5E1CEB0D0E0071E59F /* MouseLocationEntity.h */,
-				16887D5F1CEB0D0E0071E59F /* MouseLocationEntity.m */,
+				16B077F61D1AAADF009C070B /* EntityMouseLocation+CoreDataProperties.h */,
+				16B077F71D1AAADF009C070B /* EntityMouseLocation+CoreDataProperties.m */,
+				16B077F81D1AAADF009C070B /* EntityMouseLocation.h */,
+				16B077F91D1AAADF009C070B /* EntityMouseLocation.m */,
 			);
 			name = MouseLocation;
 			sourceTree = "<group>";
@@ -314,10 +319,10 @@
 			children = (
 				163F84911CEBE4F100BB2FE9 /* AWAREPcKeyboard.h */,
 				163F84921CEBE4F100BB2FE9 /* AWAREPcKeyboard.m */,
-				166D851E1CEB713800D7C2B7 /* KeyboardEntity+CoreDataProperties.h */,
-				166D851F1CEB713800D7C2B7 /* KeyboardEntity+CoreDataProperties.m */,
-				166D85201CEB713800D7C2B7 /* KeyboardEntity.h */,
-				166D85211CEB713800D7C2B7 /* KeyboardEntity.m */,
+				16B077FC1D1AAB38009C070B /* EntityKeyboard+CoreDataProperties.h */,
+				16B077FD1D1AAB38009C070B /* EntityKeyboard+CoreDataProperties.m */,
+				16B077FE1D1AAB38009C070B /* EntityKeyboard.h */,
+				16B077FF1D1AAB38009C070B /* EntityKeyboard.m */,
 			);
 			name = Keyboard;
 			sourceTree = "<group>";
@@ -327,10 +332,10 @@
 			children = (
 				163F84941CEBE4FA00BB2FE9 /* AWAREPcState.h */,
 				163F84951CEBE4FA00BB2FE9 /* AWAREPcState.m */,
-				166D85241CEB732000D7C2B7 /* PcUsageEntity+CoreDataProperties.h */,
-				166D85251CEB732000D7C2B7 /* PcUsageEntity+CoreDataProperties.m */,
-				166D85261CEB732000D7C2B7 /* PcUsageEntity.h */,
-				166D85271CEB732000D7C2B7 /* PcUsageEntity.m */,
+				16B078021D1AAB77009C070B /* EntityPcUsage+CoreDataProperties.h */,
+				16B078031D1AAB77009C070B /* EntityPcUsage+CoreDataProperties.m */,
+				16B078041D1AAB77009C070B /* EntityPcUsage.h */,
+				16B078051D1AAB77009C070B /* EntityPcUsage.m */,
 			);
 			name = Usage;
 			sourceTree = "<group>";
@@ -432,7 +437,7 @@
 								enabled = 0;
 							};
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -550,30 +555,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				166D85231CEB713800D7C2B7 /* KeyboardEntity.m in Sources */,
+				16B077EE1D1AAA92009C070B /* EntityAppUsage+CoreDataProperties.m in Sources */,
+				16B077D71D1AA139009C070B /* AWARECoreDataManager.m in Sources */,
 				16F2DB991CEA2B9300A89EBF /* AWAREUtils.m in Sources */,
 				164FC6301C1347C100F77893 /* AWAREStudy.m in Sources */,
-				16F2DB961CEA2A9200A89EBF /* AWARECoreDataManager.m in Sources */,
-				16887D5A1CEAF62C0071E59F /* AppUsageEntity+CoreDataProperties.m in Sources */,
+				16B077F51D1AAABF009C070B /* EntityMouseClick.m in Sources */,
 				164FC5F71C1298F300F77893 /* main.m in Sources */,
-				164FC6461C13765B00F77893 /* AWARESensorManager.m in Sources */,
 				163F848A1CEBE4D000BB2FE9 /* AWAREPcApp.m in Sources */,
+				16B078001D1AAB38009C070B /* EntityKeyboard+CoreDataProperties.m in Sources */,
 				164FC5F41C1298F300F77893 /* AppDelegate.m in Sources */,
-				166D85281CEB732000D7C2B7 /* PcUsageEntity+CoreDataProperties.m in Sources */,
+				16B077DA1D1AA16E009C070B /* AWAREUploader.m in Sources */,
 				164FC6331C1347D400F77893 /* AWARESensor.m in Sources */,
 				163F848D1CEBE4DE00BB2FE9 /* AWAREPcMouseClick.m in Sources */,
-				166D85291CEB732000D7C2B7 /* PcUsageEntity.m in Sources */,
+				16B078071D1AAB77009C070B /* EntityPcUsage.m in Sources */,
 				16F2DB9C1CEA2F7800A89EBF /* AWARE.xcdatamodeld in Sources */,
+				16B077EF1D1AAA92009C070B /* EntityAppUsage.m in Sources */,
+				16B078011D1AAB38009C070B /* EntityKeyboard.m in Sources */,
+				16B077FB1D1AAADF009C070B /* EntityMouseLocation.m in Sources */,
 				163F84931CEBE4F100BB2FE9 /* AWAREPcKeyboard.m in Sources */,
+				16B078061D1AAB77009C070B /* EntityPcUsage+CoreDataProperties.m in Sources */,
 				163F84901CEBE4E800BB2FE9 /* AWAREPcMouseLocation.m in Sources */,
-				16887D601CEB0D0E0071E59F /* MouseLocationEntity+CoreDataProperties.m in Sources */,
 				164FC62C1C12C68600F77893 /* PreferencesWindow.m in Sources */,
+				16B077F41D1AAABF009C070B /* EntityMouseClick+CoreDataProperties.m in Sources */,
 				168639031C49AAA00058E3D1 /* SSLManager.m in Sources */,
-				16887D611CEB0D0E0071E59F /* MouseLocationEntity.m in Sources */,
-				16887D5B1CEAF62C0071E59F /* AppUsageEntity.m in Sources */,
-				16887D691CEB191F0071E59F /* MouseClickEntity.m in Sources */,
-				166D85221CEB713800D7C2B7 /* KeyboardEntity+CoreDataProperties.m in Sources */,
-				16887D681CEB191F0071E59F /* MouseClickEntity+CoreDataProperties.m in Sources */,
+				16B077E31D1AA714009C070B /* AWARESensorManager.m in Sources */,
+				16B077FA1D1AAADF009C070B /* EntityMouseLocation+CoreDataProperties.m in Sources */,
 				164FC6431C1348E700F77893 /* AWAREKeys.m in Sources */,
 				163F84961CEBE4FA00BB2FE9 /* AWAREPcState.m in Sources */,
 			);
@@ -707,7 +713,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "AWARE for OSX/AWARE for OSX.entitlements";
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "AWARE for OSX/Info.plist";
@@ -725,7 +731,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "AWARE for OSX/AWARE for OSX.entitlements";
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "AWARE for OSX/Info.plist";

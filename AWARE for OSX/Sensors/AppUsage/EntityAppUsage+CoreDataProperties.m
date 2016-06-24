@@ -1,21 +1,21 @@
 //
-//  MouseLocationEntity+CoreDataProperties.m
+//  EntityAppUsage+CoreDataProperties.m
 //  AWARE for OSX
 //
-//  Created by Yuuki Nishiyama on 5/17/16.
+//  Created by Yuuki Nishiyama on 6/22/16.
 //  Copyright © 2016 Yuuki NISHIYAMA. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "MouseLocationEntity+CoreDataProperties.h"
+#import "EntityAppUsage+CoreDataProperties.h"
 
-@implementation MouseLocationEntity (CoreDataProperties)
+@implementation EntityAppUsage (CoreDataProperties)
 
-@dynamic timestamp;
+@dynamic application;
 @dynamic device_id;
-@dynamic x;
-@dynamic y;
+@dynamic label;
+@dynamic timestamp;
 
 @end

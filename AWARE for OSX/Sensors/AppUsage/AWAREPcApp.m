@@ -7,7 +7,8 @@
 //
 
 #import "AWAREPcApp.h"
-#import "AppUsageEntity.h"
+#import "AWAREUtils.h"
+#import "EntityAppUsage.h"
 
 @implementation AWAREPcApp{
     NSTimer *sensingTimer;
@@ -17,7 +18,9 @@
 - (instancetype) initWithSensorName:(NSString *)name
                          entityName:(NSString*)entity
                          awareStudy:(AWAREStudy *) study{
-    self = [super initWithSensorName:name entityName:NSStringFromClass([AppUsageEntity class]) awareStudy:study];
+    self = [super initWithSensorName:name
+                          entityName:NSStringFromClass([EntityAppUsage class])
+                          awareStudy:study];
     if (self) {
         [super setSensorName:name];
     }
@@ -53,14 +56,6 @@
     NSWorkspace* ws = [NSWorkspace sharedWorkspace];
     NSString *currentActiveApp = [[ws activeApplication] objectForKey:@"NSApplicationName"];
     if (![currentActiveApp isEqualToString:pastActiveApp]) {
-
-//        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-//        [dic setObject:unixtime forKey:@"timestamp"];
-//        [dic setObject:[self getDeviceId] forKey:@"device_id"];
-//        [dic setObject:currentActiveApp forKey:@"application"];
-//        [dic setObject:@"mac app" forKey:@"label"];
-//        [self saveData:dic];
-        
         [self setLatestValue:[NSString stringWithFormat:
                             @"[%@] %@",
                             [NSDate new],
@@ -69,21 +64,15 @@
         NSLog(@"%@", currentActiveApp );
         pastActiveApp = currentActiveApp;
 
-        NSString * name = NSStringFromClass([AppUsageEntity class]);
         AppDelegate *delegate=(AppDelegate*)[NSApplication sharedApplication].delegate;
-        AppUsageEntity *appUsage = [NSEntityDescription insertNewObjectForEntityForName:name
+        EntityAppUsage *appUsage = [NSEntityDescription insertNewObjectForEntityForName: NSStringFromClass([EntityAppUsage class])
                                                                  inManagedObjectContext:delegate.managedObjectContext];
-  
         appUsage.timestamp = [AWAREUtils getUnixTimestamp:[NSDate new]];
         appUsage.device_id = [self getDeviceId];
         appUsage.application = currentActiveApp;
         appUsage.label = @"Mac App";
         
-        NSError * error = nil;
-        [delegate.managedObjectContext save:&error];
-        if (error != nil) {
-            NSLog(@"Error: %@", error.debugDescription);
-        }
+        [self saveDataToDB];
     }
 }
 

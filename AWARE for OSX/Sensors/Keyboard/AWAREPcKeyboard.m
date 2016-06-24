@@ -8,7 +8,8 @@
 //
 
 #import "AWAREPcKeyboard.h"
-#import "KeyboardEntity.h"
+#import "EntityKeyboard.h"
+#import "AWAREUtils.h"
 
 @implementation AWAREPcKeyboard{
     NSTimer *sensingTimer;
@@ -19,7 +20,7 @@
 - (instancetype)initWithSensorName:(NSString *)name
                         entityName:(NSString *)entity
                         awareStudy:(AWAREStudy *)study{
-    self = [super initWithSensorName:name entityName:NSStringFromClass([KeyboardEntity class])  awareStudy:study];
+    self = [super initWithSensorName:name entityName:NSStringFromClass([EntityKeyboard class])  awareStudy:study];
     if (self) {
         [super setSensorName:name];
         pastMouseLocation = [NSEvent mouseLocation];
@@ -67,7 +68,7 @@
             [self setLatestValue:latestData];
             
             AppDelegate *delegate=(AppDelegate*)[NSApplication sharedApplication].delegate;
-            KeyboardEntity *entity = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([KeyboardEntity class])
+            EntityKeyboard *entity = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([EntityKeyboard class])
                                                                         inManagedObjectContext:delegate.managedObjectContext];
             entity.timestamp = [AWAREUtils getUnixTimestamp:[NSDate new]];
             entity.device_id = [self getDeviceId];
@@ -85,12 +86,12 @@
                 entity.key_down = @"";
             }
             
-            
-            NSError * error = nil;
-            [delegate.managedObjectContext save:&error];
-            if (error != nil) {
-                NSLog(@"Error: %@", error.debugDescription);
-            }
+            [self saveDataToDB];
+//            NSError * error = nil;
+//            [delegate.managedObjectContext save:&error];
+//            if (error != nil) {
+//                NSLog(@"Error: %@", error.debugDescription);
+//            }
             
         }];
 }

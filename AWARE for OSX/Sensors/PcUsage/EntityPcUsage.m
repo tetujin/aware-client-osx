@@ -1,14 +1,14 @@
 //
-//  PcUsageEntity.m
+//  EntityPcUsage.m
 //  AWARE for OSX
 //
-//  Created by Yuuki Nishiyama on 5/18/16.
+//  Created by Yuuki Nishiyama on 6/22/16.
 //  Copyright © 2016 Yuuki NISHIYAMA. All rights reserved.
 //
 
-#import "PcUsageEntity.h"
+#import "EntityPcUsage.h"
 
-@implementation PcUsageEntity
+@implementation EntityPcUsage
 
 // Insert code here to add functionality to your managed object subclass
 

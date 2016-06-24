@@ -7,13 +7,28 @@
 //
 
 #import "AWARECoreDataManager.h"
+#import "AWAREKeys.h"
+#import "AWAREUtils.h"
+#import "AppDelegate.h"
 
 @implementation AWARECoreDataManager {
     AWAREStudy * awareStudy;
     NSString* entityName;
     NSString* sensorName;
+    
+    // sync data query
     NSString * syncDataQueryIdentifier;
+    NSString * baseSyncDataQueryIdentifier;
+    
+    // create table query
     NSString * createTableQueryIdentifier;
+    NSString * baseCreateTableQueryIdentifier;
+    
+    // notification identifier
+    NSString * dbSessionFinishNotification; // this notification should make by each sensor.
+//    [[NSNotificationCenter defaultCenter] removeObserver: name: object:]
+//    [[NSNotificationCenter defaultCenter] postNotificationName:object:userInfo:]
+    
     NSString * timeMarkerIdentifier;
     double httpStartTimestamp;
     double postedTextLength;
@@ -22,14 +37,26 @@
     BOOL isSyncWithOnlyBatteryCharging;
     int errorPosts;
     
-    int fetchLimit;
-    int batchSize;
-    
     NSNumber * unixtimeOfUploadingData;
+    
+    AwareDBCondition dbCondition;
+    
+//    int currentCategoryCount;
+    int currentRepetitionCounts; // current repetition count
+    int repetitionTime;          // max repetition count
+    
+    double shortDelayForNextUpload; // second
+    double longDelayForNextUpload; // second
+    int thresholdForNextLongDelay; // count
+    
+    int bufferCount;
+    
 }
 
-- (instancetype)initWithSensorName:(NSString *)name entityName:(NSString *)entity awareStudy:(AWAREStudy *)study{
-    self = [super init];
+- (instancetype)initWithAwareStudy:(AWAREStudy *)study
+                        sensorName:(NSString *)name
+                      dbEntityName:(NSString *)entity {
+    self = [super initWithAwareStudy:study sensorName:name];
     if(self != nil){
         awareStudy = study;
         sensorName = name;
@@ -38,35 +65,52 @@
         httpStartTimestamp = [[NSDate new] timeIntervalSince1970];
         postedTextLength = 0;
         errorPosts = 0;
-        fetchLimit = 100;
-        batchSize = 0;
-        syncDataQueryIdentifier = [NSString stringWithFormat:@"sync_data_query_identifier_%@", sensorName];
-        createTableQueryIdentifier = [NSString stringWithFormat:@"create_table_query_identifier_%@",  sensorName];
+        shortDelayForNextUpload = 1; // second
+        longDelayForNextUpload = 30; // second
+        thresholdForNextLongDelay = 10; // count
+        bufferCount = 0; // buffer count
+        baseSyncDataQueryIdentifier = [NSString stringWithFormat:@"sync_data_query_identifier_%@", sensorName];
+        baseCreateTableQueryIdentifier = [NSString stringWithFormat:@"create_table_query_identifier_%@",  sensorName];
         timeMarkerIdentifier = [NSString stringWithFormat:@"uploader_coredata_timestamp_marker_%@", sensorName];
+        dbSessionFinishNotification = [NSString stringWithFormat:@"aware.db.session.finish.notification.%@", sensorName];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedDbSession:) name:dbSessionFinishNotification object:nil];
+        //    [[NSNotificationCenter defaultCenter] removeObserver: name: object:]
+        //    [[NSNotificationCenter defaultCenter] postNotificationName:object:userInfo:]
         
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        isDebug = [userDefaults boolForKey:SETTING_DEBUG_STATE];
+        // isDebug = [userDefaults boolForKey:SETTING_DEBUG_STATE];
+        isSyncWithOnlyBatteryCharging = [userDefaults boolForKey:SETTING_SYNC_BATTERY_CHARGING_ONLY];
+        
+        dbCondition = AwareDBConditionNormal;
+        
+//        AppDelegate *delegate=(AppDelegate*)[NSApplication sharedApplication].delegate;
+//        _mainQueueManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+//        [_mainQueueManagedObjectContext setPersistentStoreCoordinator:delegate.persistentStoreCoordinator];
         
         NSNumber * timestamp = [userDefaults objectForKey:timeMarkerIdentifier];
         if(timestamp == 0){
+            NSLog(@"timestamp == 0");
             [self setTimeMark:[NSDate new]];
+        }else{
+            NSLog(@"timestamp == %@", timestamp);
         }
     }
     return self;
 }
 
-- (void)setFetchLimit:(int)limit{
-    fetchLimit = limit;
+
+- (void) finishedDbSession:(id) sender {
+    dbCondition = AwareDBConditionNormal;
 }
 
-- (void)setFetchBatchSize:(int)size{
-    batchSize = size;
+- (void) stopStopCoreDataManager {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:dbSessionFinishNotification object:nil];
 }
 
-- (void)syncDBInBackground{
+- (void)syncAwareDBInBackground{
     // chekc wifi state
     if(isUploading){
-        NSString * message= [NSString stringWithFormat:@"[%@] AWARE is uploading sendsor data now. So, a new upload process was killed.", sensorName];
+        NSString * message= [NSString stringWithFormat:@"[%@] Now sendsor data is uploading.", sensorName];
         NSLog(@"%@", message);
         return;
     }
@@ -81,7 +125,7 @@
     // check battery condition
 //    if (isSyncWithOnlyBatteryCharging) {
 //        NSInteger batteryState = [UIDevice currentDevice].batteryState;
-//        if ( batteryState == UIDeviceBatteryStateCharging || batteryState == UIDeviceBatteryStateFull) {
+//        if ( batteryState == UIDeviceBatteryStateCharging || batteryState == NSDeviceBatteryStateFull) {
 //        }else{
 //            NSString * message = [NSString stringWithFormat:@"[%@] This device is not charginig battery now.", sensorName];
 //            NSLog(@"%@", message);
@@ -89,9 +133,23 @@
 //        }
 //    }
     
+    // Get repititon time from CoreData in background.
+//    [self getCategoryCountFromTimestamp:[self getTimeMark]]; // <-- get category count and start
+    if([NSThread isMainThread]){
+        // Make addtional thread
+        [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
+            [self  setRepetationCountAfterStartToSyncDB:[self getTimeMark]];
+        }];
+    }else{
+        [self  setRepetationCountAfterStartToSyncDB:[self getTimeMark]];
+    }
+    
     isUploading = YES;
-    [self uploadSensorDataInBackground];
+//    [self uploadSensorDataInBackground];
 }
+
+
+//////////////////////////////////////////////////////////////////////////////
 
 
 - (NSString *)getEntityName{
@@ -103,110 +161,180 @@
 //////////////////////////////////////////////////
 
 - (void) setTimeMark:(NSDate *) timestamp {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:[AWAREUtils getUnixTimestamp:timestamp] forKey:timeMarkerIdentifier];
+    if(timestamp != nil){
+        @try {
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:[AWAREUtils getUnixTimestamp:timestamp] forKey:timeMarkerIdentifier];
+            [userDefaults synchronize];
+        } @catch (NSException *exception) {
+        }
+    }else{
+        NSLog(@"===============timestamp is nil============================");
+    }
 }
 
 - (void) setTimeMarkWithTimestamp:(NSNumber *)timestamp  {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:timestamp forKey:timeMarkerIdentifier];
+    if(timestamp != nil){
+//        NSLog(@"[%@]", [self getEntityName]);
+//        NSLog(@"nil? %@", timestamp);
+        @try {
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:timestamp forKey:timeMarkerIdentifier];
+            [userDefaults synchronize];
+        }@catch(NSException *exception){
+            
+        }
+    }else{
+        NSLog(@"===============timestamp is nil============================");
+    }
+    
 }
 
 
 - (NSNumber *) getTimeMark {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [userDefaults objectForKey:timeMarkerIdentifier];
-}
-
-
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-
-
-
-- (NSData *) getSensorData{
-    
-    AppDelegate *delegate=(AppDelegate*)[NSApplication sharedApplication].delegate;
-
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
-    [fetchRequest setFetchLimit:fetchLimit];
-    if (batchSize != 0) [fetchRequest setFetchBatchSize:batchSize];
-    
-    NSNumber * timestamp = [self getTimeMark];
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"timestamp >= %@", timestamp]];
-
-    //Set sort option
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-    [fetchRequest setSortDescriptors:sortDescriptors];
-
-    //Get NSManagedObject from managedObjectContext by using fetch setting
-    NSArray *results = [delegate.managedObjectContext executeFetchRequest:fetchRequest error:nil];
-
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (NSManagedObject *data in results) {
-        NSArray *keys = [[[data entity] attributesByName] allKeys];
-        NSDictionary *dict = [data dictionaryWithValuesForKeys:keys];
-        unixtimeOfUploadingData = [dict objectForKey:@"timestamp"];
-//        NSLog(@"[%@] timestamp: %@",[self getEntityName] , unixtimeOfUploadingData );
-        [array addObject:dict];
-    }
-    
-    if (results != nil) {
-        NSError * error = nil;
-        NSData * jsonData = [NSJSONSerialization dataWithJSONObject:array options:0 error:&error];
-        if (error == nil && jsonData != nil) {
-            return jsonData; //[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        }else{
-            return nil;
-        }
+    [userDefaults synchronize];
+    NSNumber * timestamp = [userDefaults objectForKey:timeMarkerIdentifier];
+//    NSLog(@"[%@]", [self getEntityName]);
+//    NSLog(@"nil? %@", timestamp);
+    if(timestamp != nil){
+        return timestamp;
     }else{
-        return nil;
+        NSLog(@"===============timestamp is nil============================");
+        return @0;
     }
 }
 
 
-- (void) removeUploadedDate {
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * This method saves data (that is on the RAM) to DB (SQLite).
+ * @discussion This method should be called expect for main thread.
+ */
+- (bool) saveDataToDB {
+//    NSLog(@"[%@] buffer count => %d", [self getEntityName], bufferCount);
     
-    AppDelegate *delegate=(AppDelegate*)[NSApplication sharedApplication].delegate;
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:entityName];
-    NSNumber * timestamp = [self getTimeMark];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"timestamp <= %@", timestamp]];
-    
-    NSBatchDeleteRequest *delete = [[NSBatchDeleteRequest alloc] initWithFetchRequest:request];
-    
-    NSError *deleteError = nil;
-    [delegate.managedObjectContext executeRequest:delete error:&deleteError];
-//    NSBatchDeleteResult * result =
-//    NSLog(@"%ld", [[result result] count]);
-    if (deleteError != nil) {
-        NSLog(@"%@", deleteError.debugDescription);
+    if(bufferCount > [self getBufferSize]){
+        bufferCount = 0;
+    }else{
+        bufferCount ++;
+        return NO;
     }
+    
+    if(dbCondition == AwareDBConditionCounting || dbCondition == AwareDBConditionFetching){
+        NSLog(@"[%@] DB is working for 'counting' or 'fetching' the data.", [self getEntityName]);
+        return NO;
+    }
+    dbCondition = AwareDBConditionInserting;
+    @try {
+        // If the current thread is main thread, we should make a new thread for saving data
+        if([NSThread isMainThread]){
+            // Make addtional thread
+            [[[NSOperationQueue alloc] init] addOperationWithBlock:^{
+                // In the other thread, this method call -saveDataToDB again.
+                [self saveDataInBackground];
+            }];
+        }else{
+            [self saveDataInBackground];
+        }
+    }@catch(NSException *exception) {
+        NSLog(@"%@", exception.reason);
+        dbCondition = AwareDBConditionNormal;
+        return NO;
+    }
+    return YES;
+}
+
+/**
+ * Save data to SQLite in the background. NOTE: This method should be called in the background thread.
+ */
+- (void) saveDataInBackground{
+    AppDelegate *delegate=(AppDelegate*)[NSApplication sharedApplication].delegate;
+    _mainQueueManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    [_mainQueueManagedObjectContext setPersistentStoreCoordinator:delegate.persistentStoreCoordinator];
+    NSManagedObjectContext *private = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    [private setParentContext:_mainQueueManagedObjectContext];
+    [private performBlock:^{
+        NSError *error = nil;
+        if (! [private save:&error]) {
+            NSLog(@"Error saving context: %@\n%@",
+                  [error localizedDescription], [error userInfo]);
+        }
+        if(isDebug){
+            NSLog(@"Save [%@] to SQLite", [self getEntityName]);
+        }
+        dbCondition = AwareDBConditionNormal;
+    }];
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * start sync db with timestamp
+ * @discussion Please call this method in the background
+ */
+- (BOOL) setRepetationCountAfterStartToSyncDB:(NSNumber *) timestamp {
+    @try {
+        if(dbCondition == AwareDBConditionDeleting || dbCondition == AwareDBConditionInserting){
+            return NO;
+        }else{
+            dbCondition = AwareDBConditionCounting;
+        }
+        AppDelegate *delegate=(AppDelegate*)[NSApplication sharedApplication].delegate;
+        _mainQueueManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        [_mainQueueManagedObjectContext setPersistentStoreCoordinator:delegate.persistentStoreCoordinator];
+        NSManagedObjectContext *private = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        [private setParentContext:_mainQueueManagedObjectContext];
+        [private performBlock:^{
+            NSFetchRequest* request = [[NSFetchRequest alloc] init];
+            [request setEntity:[NSEntityDescription entityForName:entityName inManagedObjectContext:_mainQueueManagedObjectContext]];
+            [request setIncludesSubentities:NO];
+            [request setPredicate:[NSPredicate predicateWithFormat:@"timestamp >= %@", timestamp]];
+
+            NSError* error = nil;
+            // Get count of category
+            NSInteger count = [private countForFetchRequest:request error:&error];
+            if (count == NSNotFound) {
+                [self dataSyncIsFinishedCorrectoly];
+                dbCondition = AwareDBConditionNormal;
+                NSLog(@"[%@] There are no data in this database table",[self getEntityName]);
+                return;
+            } else if(error != nil){
+                [self dataSyncIsFinishedCorrectoly];
+                dbCondition = AwareDBConditionNormal;
+                NSLog(@"%@", error.description);
+                count = 0;
+                return;
+            }
+            // Set repetationCount
+            currentRepetitionCounts = 0;
+            repetitionTime = (int)count/(int)[self getFetchLimit];
+            
+            // set db condition as normal
+            dbCondition = AwareDBConditionNormal;
+            
+            // start upload
+            [self uploadSensorDataInBackground];
+            
+            
+        }];
+    } @catch (NSException *exception) {
+        NSLog(@"%@", exception.reason);
+        [self dataSyncIsFinishedCorrectoly];
+    } @finally {
+        return YES;
+    }
+    
 }
 
 
-- (NSUInteger)getCategoryCount {
-    NSFetchRequest* request = [[NSFetchRequest alloc] init];
-    AppDelegate *delegate=(AppDelegate*)[NSApplication sharedApplication].delegate;
-    [request setEntity:[NSEntityDescription entityForName:entityName inManagedObjectContext:delegate.managedObjectContext]];
-    [request setIncludesSubentities:NO];
-    
-    NSNumber * timestamp = [self getTimeMark];
-    
-    [request setPredicate:[NSPredicate predicateWithFormat:@"timestamp >= %@", timestamp]];
-    
-    NSError* error = nil;
-    NSUInteger count = [delegate.managedObjectContext countForFetchRequest:request error:&error];
-    if (count == NSNotFound) {
-        count = 0;
-    }
-    
-    if(error != nil){
-        NSLog(@"%@", error.debugDescription);
-    }
-    
-    return count;
+// set DB condition as normal after DB session
+- (void) setDBConditionAsNormal{
+    dbCondition = AwareDBConditionNormal;
 }
 
 
@@ -219,64 +347,166 @@
 - (void) uploadSensorDataInBackground {
     
     NSString *deviceId = [self getDeviceId];
-    NSString *url = [AWAREUtils getInsertUrl:sensorName awareStudy:awareStudy];
-    
+    NSString *url = [self getInsertUrl:sensorName];
+
     // Get sensor data from CoreData
-    NSData* sensorData = [self getSensorData];
-    
-    if (sensorData == nil || sensorData.length == 0 || sensorData.length == 2) {
-        NSString * message = [NSString stringWithFormat:@"[%@] The data is 'null', or the length of data is 'zero'", sensorName];
-        NSLog(@"%@", message);
+    if(unixtimeOfUploadingData == nil){
+        unixtimeOfUploadingData = [self getTimeMark];
+    }
+ 
+    if(dbCondition == AwareDBConditionInserting || dbCondition == AwareDBConditionDeleting){
+        NSLog(@"[%@]The DB is working for 'inserting' or 'deleting' the data.", [self getEntityName]);
         [self dataSyncIsFinishedCorrectoly];
+        [self performSelector:@selector(saveDataToDB) withObject:nil afterDelay:1];
         return;
+    }else{
+        // Block other connection by other process to this db
+        dbCondition = AwareDBConditionFetching;
+    }
+
+    // check battery condition
+//    if (isSyncWithOnlyBatteryCharging) {
+//        NSInteger batteryState = [UIDevice currentDevice].batteryState;
+//        if ( batteryState == UIDeviceBatteryStateCharging || batteryState == UIDeviceBatteryStateFull) {
+//        }else{
+//            NSLog(@"[%@] This device is not charginig battery now.", sensorName);
+//            [self dataSyncIsFinishedCorrectoly];
+//            return;
+//        }
+//    }
+    
+    if(entityName == nil){
+        NSLog(@"Entity Name is 'nil'. Please check the initialozation of this class.");
     }
     
-//    NSString * line = [[NSString alloc] initWithData:sensorData encoding:NSUTF8StringEncoding];
-//    NSLog(@"[%@] \n %@", [self getEntityName], line );
+//    NSLog(@"[%@] %d", [self getEntityName], [NSThread isMainThread]);
     
-    // Set session configuration
-    NSURLSessionConfiguration *sessionConfig = nil;
-    double unxtime = [[NSDate new] timeIntervalSince1970];
-    syncDataQueryIdentifier = [NSString stringWithFormat:@"%@%f", syncDataQueryIdentifier, unxtime];
-    sessionConfig = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:syncDataQueryIdentifier];
-    sessionConfig.timeoutIntervalForRequest = 60 * 3;
-    sessionConfig.HTTPMaximumConnectionsPerHost = 60 * 3;
-    sessionConfig.timeoutIntervalForResource = 60 * 3;
-    sessionConfig.allowsCellularAccess = NO;
+    // set a repetation count
+    currentRepetitionCounts++;
     
-    // set HTTP/POST body information
-    NSString* post = [NSString stringWithFormat:@"device_id=%@&data=", deviceId];
-    NSData* postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    NSMutableData * mutablePostData = [[NSMutableData alloc] initWithData:postData];
-    [mutablePostData appendData:sensorData];
-    
-    NSString* postLength = [NSString stringWithFormat:@"%ld", [mutablePostData length]];
-    //    NSLog(@"Data Length: %@", postLength);
-    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:url]];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:mutablePostData];
-    
-    NSString * logMessage = [NSString stringWithFormat:@"[%@] A background task is ready to start.", sensorName];
-    NSLog(@"%@", logMessage);
-    NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig
-                                                          delegate:self
-                                                     delegateQueue:nil];
-    NSURLSessionDataTask* dataTask = [session dataTaskWithRequest:request];
-    
-    httpStartTimestamp = [[NSDate new] timeIntervalSince1970];
-    postedTextLength = [[NSNumber numberWithInteger:postData.length] doubleValue];
-    
-    [dataTask resume];
+    @try {
+        AppDelegate *delegate=(AppDelegate*)[NSApplication sharedApplication].delegate;
+        _mainQueueManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        [_mainQueueManagedObjectContext setPersistentStoreCoordinator:delegate.persistentStoreCoordinator];
+        NSManagedObjectContext *private = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        [private setParentContext:_mainQueueManagedObjectContext];
+        [private performBlock:^{
+             NSData* sensorData = nil;
+             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:entityName];
+             [fetchRequest setFetchLimit:[self getFetchLimit]];
+             if ([self getFetchBatchSize] != 0) {
+                 [fetchRequest setFetchBatchSize:[self getFetchBatchSize]];
+             }
+             [fetchRequest setEntity:[NSEntityDescription entityForName:entityName inManagedObjectContext:_mainQueueManagedObjectContext]];
+             [fetchRequest setIncludesSubentities:NO];
+            
+             [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"timestamp >= %@", unixtimeOfUploadingData]];
+             
+             //Set sort option
+             NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:YES];
+             NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+             [fetchRequest setSortDescriptors:sortDescriptors];
+             
+            //Get NSManagedObject from managedObjectContext by using fetch setting
+            NSArray *results = [private executeFetchRequest:fetchRequest error:nil] ;
+            
+            if (results.count == 0 || results.count == NSNotFound) {
+                [self dataSyncIsFinishedCorrectoly];
+                dbCondition = AwareDBConditionNormal;
+                return;
+            }
+        
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            for (NSManagedObject *data in results) {
+                NSArray *keys = [[[data entity] attributesByName] allKeys];
+                NSDictionary *dict = [data dictionaryWithValuesForKeys:keys];
+                unixtimeOfUploadingData = [dict objectForKey:@"timestamp"];
+                //        NSLog(@"timestamp: %@", unixtimeOfUploadingData );
+                [array addObject:dict];
+            }
+            
+            if (results != nil) {
+                NSError * error = nil;
+                NSData * jsonData = [NSJSONSerialization dataWithJSONObject:array options:0 error:&error];
+                if (error == nil && jsonData != nil) {
+                    dbCondition = AwareDBConditionNormal;
+                    sensorData = jsonData; //[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (sensorData == nil || sensorData.length == 0 || sensorData.length == 2) { // || [sensorData isEqualToString:@"[]"]) {
+                            NSString * message = [NSString stringWithFormat:@"[%@] Data is Null or Length is Zero", sensorName];
+                            [self dataSyncIsFinishedCorrectoly];
+                            NSLog(@"%@", message);
+                            dbCondition = AwareDBConditionNormal;
+                            return;
+                        }
+                        
+                        // Set session configuration
+                        NSURLSessionConfiguration *sessionConfig = nil;
+                        double unxtime = [[NSDate new] timeIntervalSince1970];
+                        syncDataQueryIdentifier = [NSString stringWithFormat:@"%@%f", baseSyncDataQueryIdentifier, unxtime];
+                        sessionConfig = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:syncDataQueryIdentifier];
+                        sessionConfig.timeoutIntervalForRequest = 60 * 3;
+                        sessionConfig.HTTPMaximumConnectionsPerHost = 60 * 3;
+                        sessionConfig.timeoutIntervalForResource = 60 * 3;
+                        sessionConfig.allowsCellularAccess = NO;
+                        
+                        // set HTTP/POST body information
+                        NSString* post = [NSString stringWithFormat:@"device_id=%@&data=", deviceId];
+                        NSData* postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+                        NSMutableData * mutablePostData = [[NSMutableData alloc] initWithData:postData];
+                        [mutablePostData appendData:sensorData];
+                        
+                        NSString* postLength = [NSString stringWithFormat:@"%ld", [mutablePostData length]];
+                        //    NSLog(@"Data Length: %@", postLength);
+                        NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
+                        [request setURL:[NSURL URLWithString:url]];
+                        [request setHTTPMethod:@"POST"];
+                        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+                        [request setHTTPBody:mutablePostData];
+                        
+                        NSString * logMessage = [NSString stringWithFormat:@"[%@] This is background task for upload sensor data", sensorName];
+//                        NSLog(@"%@", logMessage);
+                        NSURLSession* session = [NSURLSession sessionWithConfiguration:sessionConfig
+                                                                              delegate:self
+                                                                         delegateQueue:nil];
+                        NSURLSessionDataTask* dataTask = [session dataTaskWithRequest:request];
+                        
+                        [session getTasksWithCompletionHandler:^(NSArray* dataTasks, NSArray* uploadTasks, NSArray* downloadTasks){
+//                            NSLog(@"Currently suspended tasks");
+                            for (NSURLSessionDownloadTask* task in dataTasks) {
+                                NSLog(@"Task: %@",[task description]);
+                            }
+                        }];
+                        
+                        httpStartTimestamp = [[NSDate new] timeIntervalSince1970];
+                        postedTextLength = [[NSNumber numberWithInteger:postData.length] doubleValue];
+                        
+                        [dataTask resume];
+                    });
+                }else{
+                    dbCondition = AwareDBConditionNormal;
+                    return;
+                }
+            }else{
+                dbCondition = AwareDBConditionNormal;
+                return;
+            }
+        }];
+    } @catch (NSException *exception) {
+        NSLog(@"%@", exception.reason);
+        [self dataSyncIsFinishedCorrectoly];
+        dbCondition = AwareDBConditionNormal;
+    } @finally {
+    }
 }
 
 ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////
 
-- (void)syncDBInForeground{
-    
+- (BOOL)syncDBInForeground{
+    return NO;
 }
+
 
 
 /////////////////////////////////////////////////
@@ -296,8 +526,10 @@ didReceiveResponse:(NSURLResponse *)response
     // test: server peformance
     double diff = [[NSDate new] timeIntervalSince1970] - httpStartTimestamp;
     if (postedTextLength > 0 && diff > 0) {
-        NSString *networkPeformance = [NSString stringWithFormat:@"%0.2f KB/s",postedTextLength/diff/1000.0f];
-        NSLog(@"[%@] Uploading speed => %@", sensorName, networkPeformance);
+        double kbs = postedTextLength/diff/1000.0f;
+//        NSString *networkPeformance = [NSString stringWithFormat:@"%0.2f KB/s",kbs];
+        NSLog(@"[%@] %0.2f KB/s", sensorName, kbs);
+        
     }
     
     [session finishTasksAndInvalidate];
@@ -305,7 +537,7 @@ didReceiveResponse:(NSURLResponse *)response
     completionHandler(NSURLSessionResponseAllow);
     
     if ([session.configuration.identifier isEqualToString:syncDataQueryIdentifier]) {
-        NSLog(@"[%@] Get a response from the server.", sensorName);
+//        NSLog(@"[%@] Get response from the server.", sensorName);
         [self receivedResponseFromServer:dataTask.response withData:nil error:nil];
     } else if ( [session.configuration.identifier isEqualToString:createTableQueryIdentifier] ){
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
@@ -357,10 +589,11 @@ didBecomeStreamTask:(NSURLSessionStreamTask *)streamTask{
     if ([session.configuration.identifier isEqualToString:syncDataQueryIdentifier]) {
         // If the data is null, this method is not called.
         NSString * result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"[%@] Response => %@", sensorName, result);
+        NSLog(@"[%@] Data is coming! => %@", sensorName, result);
+
     } else if ([session.configuration.identifier isEqualToString:createTableQueryIdentifier]){
         NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"[%@] Response => %@",sensorName, newStr);
+        NSLog(@"[%@] %@",sensorName, newStr);
     }
     [session finishTasksAndInvalidate];
     [session invalidateAndCancel];
@@ -373,10 +606,10 @@ didBecomeStreamTask:(NSURLSessionStreamTask *)streamTask{
 ////////////////////////////////////////////////////////////
 
 - (void)URLSession:(NSURLSession *)session didBecomeInvalidWithError:(NSError *)error{
-    if (error != nil) {
-        NSLog(@"[%@] The session did become invaild with error: %@", sensorName, error.debugDescription);
+//    if (error != nil) {
+//        NSLog(@"[%@] the session did become invaild with error: %@", sensorName, error.debugDescription);
 //        [AWAREUtils sendLocalNotificationForMessage:error.debugDescription soundFlag:NO];
-    }
+//    }
     [session invalidateAndCancel];
     [session finishTasksAndInvalidate];
 }
@@ -387,12 +620,10 @@ didBecomeStreamTask:(NSURLSessionStreamTask *)streamTask{
 - (void)receivedResponseFromServer:(NSURLResponse *)response
                           withData:(NSData *)data
                              error:(NSError *)error{
-    
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
     int responseCode = (int)[httpResponse statusCode];
-    NSLog(@"[%@] The response code is %d",sensorName, responseCode);
-    //    NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    //    NSLog(@"[%@] %d  Response =====> %@",sensorName, responseCode, newStr);
+    NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"[%@] %d  Response =====> %@",sensorName, responseCode, newStr);
     
     data = nil;
     response = nil;
@@ -400,13 +631,96 @@ didBecomeStreamTask:(NSURLSessionStreamTask *)streamTask{
     httpResponse = nil;
     
     if ( responseCode == 200 ) {
-        [self setTimeMarkWithTimestamp:unixtimeOfUploadingData];
-        [self removeUploadedDate];
-        if ([self getCategoryCount] < fetchLimit ){
-            [self dataSyncIsFinishedCorrectoly];
-        }else{
-            [self uploadSensorDataInBackground];
-        }
+        
+        double progress = (double)currentRepetitionCounts/(double)repetitionTime*100;
+        NSLog(@"[%@] Progress: %.2f %%", [self getEntityName], progress);
+        
+//        if(isDebug){
+//            if (currentRepetitionCounts > repetitionTime) {
+//                [AWAREUtils sendLocalNotificationForMessage:[NSString stringWithFormat:@"[%@] Finish to upload data",sensorName] soundFlag:NO];
+//            }else{
+//                [AWAREUtils sendLocalNotificationForMessage:[NSString stringWithFormat:@"[%@] Success to upload sensor data to AWARE server with %0.2f%@",sensorName,progress, @"%%"]  soundFlag:NO];
+//            }
+//        }
+    
+        /** =========== Remove old data ============== */
+
+        AppDelegate *delegate=(AppDelegate*)[NSApplication sharedApplication].delegate;
+        _mainQueueManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        [_mainQueueManagedObjectContext setPersistentStoreCoordinator:delegate.persistentStoreCoordinator];
+        NSFetchRequest* request = [[NSFetchRequest alloc] init];
+        NSManagedObjectContext *private = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        [private setParentContext:_mainQueueManagedObjectContext];
+        [request setEntity:[NSEntityDescription entityForName:entityName inManagedObjectContext:_mainQueueManagedObjectContext]];
+        [request setIncludesSubentities:NO];
+        
+        [private performBlock:^{
+            if(dbCondition == AwareDBConditionNormal){
+                dbCondition = AwareDBConditionDeleting;
+                // Set time mark
+                [self setTimeMarkWithTimestamp: unixtimeOfUploadingData];
+            
+//            cleanOldDataType cleanType = [awareStudy getCleanOldDataType];
+//            NSDate * clearLimitDate = [NSDate new];
+//            bool skip = YES;
+//            switch (cleanType) {
+//                case cleanOldDataTypeNever:
+//                    skip = YES;
+//                    break;
+//                case cleanOldDataTypeDaily:
+//                    skip = NO;
+//                    clearLimitDate = [[NSDate alloc] initWithTimeIntervalSinceNow:-1*60*60*24];
+//                    break;
+//                case cleanOldDataTypeWeekly:
+//                    skip = NO;
+//                    clearLimitDate = [[NSDate alloc] initWithTimeIntervalSinceNow:-1*60*60*24*7];
+//                    break;
+//                case cleanOldDataTypeMonthly:
+//                    clearLimitDate = [[NSDate alloc] initWithTimeIntervalSinceNow:-1*60*60*24*31];
+//                    skip = NO;
+//                    break;
+//                case cleanOldDataTypeAlways:
+//                    clearLimitDate = [NSDate new];
+//                    skip = NO;
+//                    break;
+//                default:
+//                    skip = YES;
+//                    break;
+//            }
+//            if(!skip){
+                /** ========== Delete uploaded data ============= */
+                NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:entityName];
+                NSNumber * timestamp = unixtimeOfUploadingData; // [self getTimeMark];
+//                NSNumber * limitTimestamp = [AWAREUtils getUnixTimestamp:clearLimitDate];
+//                [request setPredicate:[NSPredicate predicateWithFormat:@"(timestamp < %@) AND (timestamp < %@)", timestamp, limitTimestamp]];
+                [request setPredicate:[NSPredicate predicateWithFormat:@"timestamp < %@", timestamp]];
+                NSBatchDeleteRequest *delete = [[NSBatchDeleteRequest alloc] initWithFetchRequest:request];
+                NSError *deleteError = nil;
+                [private executeRequest:delete error:&deleteError];
+                if (deleteError != nil) {
+                    NSLog(@"%@", deleteError.description);
+                }
+                dbCondition = AwareDBConditionNormal;
+//            }
+            }
+            
+            /** =========== Start next data upload =========== */
+            if (currentRepetitionCounts > repetitionTime ){
+                [self dataSyncIsFinishedCorrectoly];
+            }else{
+                // Get main queue
+                dispatch_async(dispatch_get_main_queue(), ^{
+                   //https://developer.apple.com/library/ios/documentation/Performance/Conceptual/EnergyGuide-iOS/WorkLessInTheBackground.html#//apple_ref/doc/uid/TP40015243-CH22-SW1
+                    if (currentRepetitionCounts%thresholdForNextLongDelay == 0) {
+                        [self performSelector:@selector(uploadSensorDataInBackground) withObject:nil afterDelay:longDelayForNextUpload];
+                    }else{
+                        [self performSelector:@selector(uploadSensorDataInBackground) withObject:nil afterDelay:shortDelayForNextUpload];
+                    }
+                });
+            }
+        }];
+    }else{
+        NSLog(@"[%@] ERROR", [self getEntityName]);
     }
 }
 
@@ -434,7 +748,7 @@ didCompleteWithError:(nullable NSError *)error;
         } else {
             
         }
-        // NSLog(@"%@", task.description);
+        NSLog(@"%@", task.description);
         return;
     } else if ([session.configuration.identifier isEqualToString:createTableQueryIdentifier]){
         session = nil;
@@ -442,10 +756,21 @@ didCompleteWithError:(nullable NSError *)error;
     }
 }
 
+
+/**
+ * init variables for data upload
+ * @discussion This method is called when finish to data upload session
+ */
 - (void) dataSyncIsFinishedCorrectoly {
+    NSLog(@"[%@] Session task finished", sensorName);
+    // set uploading state is NO
     isUploading = NO;
-    NSLog(@"[%@] A session task is finished correctly.", sensorName);
+    // init error counts
     errorPosts = 0;
+    // init repetation time and current count
+    repetitionTime = 0;
+    currentRepetitionCounts = 0;
+    
 }
 
 
@@ -455,12 +780,45 @@ didCompleteWithError:(nullable NSError *)error;
 /**
  * AWARE URL makers
  */
+- (NSString *)getWebserviceUrl{
+    NSString* url = [awareStudy getWebserviceServer];
+    if (url == NULL || [url isEqualToString:@""]) {
+        NSLog(@"[Error] You did not have a StudyID. Please check your study configuration.");
+        return @"";
+    }
+    return url;
+}
+
 
 - (NSString *)getDeviceId{
+    //    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    //    NSString* deviceId = [userDefaults objectForKey:KEY_MQTT_USERNAME];
     NSString * deviceId = [awareStudy getDeviceId];
     return deviceId;
 }
 
+- (NSString *)getInsertUrl:(NSString *)name{
+    //    - insert: insert new data to the table
+    return [NSString stringWithFormat:@"%@/%@/insert", [self getWebserviceUrl], name];
+}
+
+
+- (NSString *)getLatestDataUrl:(NSString *)name{
+    //    - latest: returns the latest timestamp on the server, for synching what’s new on the phone
+    return [NSString stringWithFormat:@"%@/%@/latest", [self getWebserviceUrl], name];
+}
+
+
+- (NSString *)getCreateTableUrl:(NSString *)name{
+    //    - create_table: creates a table if it doesn’t exist already
+    return [NSString stringWithFormat:@"%@/%@/create_table", [self getWebserviceUrl], name];
+}
+
+
+- (NSString *)getClearTableUrl:(NSString *)name{
+    //    - clear_table: remove a specific device ID data from the database table
+    return [NSString stringWithFormat:@"%@/%@/clear_table", [self getWebserviceUrl], name];
+}
 
 //////////////////////////////////////////////
 /////////////////////////////////////////////
@@ -472,6 +830,66 @@ didCompleteWithError:(nullable NSError *)error;
 //- (NSString *) getNetworkReachabilityAsText{
 //    return [awareStudy getNetworkReachabilityAsText];
 //}
+
+////////////////////////////////////////////////
+///////////////////////////////////////////////
+////////////////////////////////////////////
+////////////////////////////////////////////
+
+
+
+/**
+ * Create Table Methods
+ */
+
+- (void) createTable:(NSString*) query {
+    [self createTable:query withTableName:sensorName];
+}
+
+- (void) createTable:(NSString *)query withTableName:(NSString*) tableName {
+    NSString *post = nil;
+    NSData *postData = nil;
+    NSMutableURLRequest *request = nil;
+    __weak NSURLSession *session = nil;
+    //    NSURLSession *session = nil;
+    NSString *postLength = nil;
+    NSURLSessionConfiguration *sessionConfig = nil;
+    
+    // Make a post query for creating a table
+    post = [NSString stringWithFormat:@"device_id=%@&fields=%@", [self getDeviceId], query];
+    postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    postLength = [NSString stringWithFormat:@"%ld", [postData length]];
+    
+    request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:[self getCreateTableUrl:tableName]]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:postData];
+    
+    // Generate an unique identifier for background HTTP/POST on iOS
+    double unxtime = [[NSDate new] timeIntervalSince1970];
+    createTableQueryIdentifier = [NSString stringWithFormat:@"%@%f", baseCreateTableQueryIdentifier, unxtime];
+    sessionConfig = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:createTableQueryIdentifier];
+    sessionConfig.timeoutIntervalForRequest = 180.0;
+    sessionConfig.HTTPMaximumConnectionsPerHost = 60;
+    sessionConfig.timeoutIntervalForResource = 60;
+    sessionConfig.allowsCellularAccess = YES;
+    //    sessionConfig.discretionary = YES;
+    
+//    NSString * debugMessage = [NSString stringWithFormat:@"[%@] Sent a query for creating a table in the background", sensorName];
+    session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+    NSURLSessionDataTask* dataTask = [session dataTaskWithRequest:request];
+    [dataTask resume];
+}
+
+
+
+/**
+ * WIP:
+ */
+- (BOOL)clearTable{
+    return NO;
+}
 
 
 ////////////////////////////////////////////
@@ -486,6 +904,206 @@ didCompleteWithError:(nullable NSError *)error;
     completionHandler(NSURLSessionAuthChallengeUseCredential, [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust]);
     
 }
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+
+- (BOOL)syncAwareDBInForeground{
+    
+    [self syncAwareDBInBackground];
+    
+//    if(isUploading){
+//        NSString * message= [NSString stringWithFormat:@"[%@] Now sendsor data is uploading.", sensorName];
+//        NSLog(@"%@", message);
+//        return NO;
+//    }
+//    
+//    // chekc wifi state
+//    if (![awareStudy isWifiReachable]) {
+//        NSString * message = [NSString stringWithFormat:@"[%@] Wifi is not availabe.", sensorName];
+//        NSLog(@"%@", message);
+//        return NO;
+//    }
+//    
+//    // check battery condition
+//    if (isSyncWithOnlyBatteryCharging) {
+//        NSInteger batteryState = [UIDevice currentDevice].batteryState;
+//        if ( batteryState == UIDeviceBatteryStateCharging || batteryState == UIDeviceBatteryStateFull) {
+//        }else{
+//            NSString * message = [NSString stringWithFormat:@"[%@] This device is not charginig battery now.", sensorName];
+//            NSLog(@"%@", message);
+//            return NO;
+//        }
+//    }
+//    
+//    // start loop for uploadsing data!
+//    if(dbCondition == AwareDBConditionDeleting || dbCondition == AwareDBConditionInserting){
+//        return NO;
+//    }else{
+//        dbCondition = AwareDBConditionCounting;
+//    }
+//    NSFetchRequest* request = [[NSFetchRequest alloc] init];
+//    [request setEntity:[NSEntityDescription entityForName:entityName inManagedObjectContext:_mainQueueManagedObjectContext]];
+//    [request setIncludesSubentities:NO];
+//    [request setPredicate:[NSPredicate predicateWithFormat:@"timestamp >= %@", [self getTimeMark]]];
+//    
+//    NSError* error = nil;
+//    // Get count of category
+//    AppDelegate *delegate=(AppDelegate*)[UIApplication sharedApplication].delegate;
+//    NSInteger count = [delegate.managedObjectContext countForFetchRequest:request error:&error];
+//    if (count == NSNotFound) {
+//        [self dataSyncIsFinishedCorrectoly];
+//        NSLog(@"[%@] There are no data in this database table",[self getEntityName]);
+//        return YES;
+//    } else if(error != nil){
+//        [self dataSyncIsFinishedCorrectoly];
+//        NSLog(@"%@", error.description);
+//        count = 0;
+//        return NO;
+//    }
+//    // Set repetationCount
+//    currentRepetitionCounts = 0;
+//    repetitionTime = (int)count/(int)[self getFetchLimit];
+//    
+//    // set db condition as normal
+//    dbCondition = AwareDBConditionNormal;
+    
+    // start upload
+    //    [self uploadSensorDataInBackground];
+    
+    return YES;
+}
+
+
+
+
+
+
+
+
+
+//        NSInteger categoryCount = [self getCategoryCountFromTimestamp:unixtimeOfUploadingData];
+//        if(isDebug){
+//
+//            if (categoryCount < [self getFetchLimit]) {
+//                [AWAREUtils sendLocalNotificationForMessage:[NSString stringWithFormat:@"[%@] Success to upload sensor data to AWARE server with %d records",sensorName,(int)categoryCount] soundFlag:NO];
+//            }else{
+//                [AWAREUtils sendLocalNotificationForMessage:[NSString stringWithFormat:@"[%@] Success to upload sensor data to AWARE server with %d/%d records",sensorName,[self getFetchLimit],(int)categoryCount] soundFlag:NO];
+//            }
+//        }
+//
+//        if(unixtimeOfUploadingData != nil){ // TODO
+//            [self setTimeMarkWithTimestamp:unixtimeOfUploadingData];
+//        }
+//
+//        if(categoryCount == -1){ // TODO
+//            [self uploadSensorDataInBackground];
+//        }
+//
+////        NSLog(@"%ld", categoryCount);
+//        if (categoryCount < [self getFetchLimit] ){
+//            [self dataSyncIsFinishedCorrectoly];
+//        }else{
+//            [self uploadSensorDataInBackground];
+//        }
+
+
+
+//- (void) removeUploadedDate {
+//
+//    if(dbCondition == AwareDBConditionFetching || dbCondition == AwareDBConditionCounting ){
+//        NSLog(@"[%@]The DB is woring for fetching or counting the record", [self getEntityName]);
+//        return ;
+//    }else{
+//        dbCondition = AwareDBConditionDeleting;
+//    }
+//    @try {
+//
+//        NSFetchRequest* request = [[NSFetchRequest alloc] init];
+//        NSManagedObjectContext *private = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+//        [private setParentContext:_mainQueueManagedObjectContext];
+//        [request setEntity:[NSEntityDescription entityForName:entityName inManagedObjectContext:_mainQueueManagedObjectContext]];
+//        [request setIncludesSubentities:NO];
+//
+//        [private performBlock:^{
+//            NSLog(@"[%@] %d", [self getEntityName], [NSThread isMainThread]);
+//
+////            AppDelegate *delegate=(AppDelegate*)[UIApplication sharedApplication].delegate;
+//
+//            NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:entityName];
+//            NSNumber * timestamp = [self getTimeMark];
+//
+//            [request setPredicate:[NSPredicate predicateWithFormat:@"timestamp < %@", timestamp]];
+//
+//            NSBatchDeleteRequest *delete = [[NSBatchDeleteRequest alloc] initWithFetchRequest:request];
+//
+//            NSError *deleteError = nil;
+//            [private executeRequest:delete error:&deleteError];
+//            if (deleteError != nil) {
+//                NSLog(@"%@", deleteError.description);
+//            }
+//            //    [delegate.managedObjectContext reset];
+//            dbCondition = AwareDBConditionNormal;
+//        }];
+//
+//    } @catch (NSException *exception) {
+//         NSLog(@"%@", exception.reason);
+//        [self dataSyncIsFinishedCorrectoly];
+//    } @finally {
+//
+//    }
+//
+//}
+
+
+
+//- (NSUInteger)getCategoryCountFromTimestamp:(NSNumber *) timestamp {
+//    //    NSLog(@"[%@] %d", [self getEntityName], [NSThread isMainThread]);
+//    if(dbCondition == AwareDBConditionInserting || dbCondition == AwareDBConditionDeleting){
+//        NSLog(@"[%@]DB is woring for 'inserting' or 'deleting' the data.",[self getEntityName]);
+//        return -1;
+//    }else{
+//        dbCondition = AwareDBConditionNormal;
+//    }
+//
+//
+//    NSLog(@"[%@] %d", [self getEntityName], [NSThread isMainThread]);
+//
+//    NSUInteger count = 0;
+//    @try {
+//        NSFetchRequest* request = [[NSFetchRequest alloc] init];
+//        if([NSThread isMainThread]){
+//            AppDelegate *delegate=(AppDelegate*)[UIApplication sharedApplication].delegate;
+//            [request setEntity:[NSEntityDescription entityForName:entityName inManagedObjectContext:delegate.managedObjectContext]];
+//            [request setIncludesSubentities:NO];
+//
+//            //        NSNumber * timestamp = [self getTimeMark];
+//            [request setPredicate:[NSPredicate predicateWithFormat:@"timestamp >= %@", timestamp]];
+//
+//            NSError* error = nil;
+//            count = [delegate.managedObjectContext countForFetchRequest:request error:&error];
+//            if (count == NSNotFound) {
+//                count = 0;
+//            }
+//            if(error != nil){
+//                NSLog(@"%@", error.description);
+//                count = 0;
+//            }
+//        }else{
+//            NSLog(@"[%@] This thread is not main thread!",[self getEntityName]);
+//        }
+//    }@catch (NSException *exception) {
+//        NSLog(@"%@", exception.reason);
+//        [self dataSyncIsFinishedCorrectoly];
+//    }@finally{
+//        dbCondition = AwareDBConditionNormal;
+//    }
+//    //    [delegate.managedObjectContext reset];
+//    return count;
+//
+//}
+
 
 
 @end

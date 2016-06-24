@@ -7,7 +7,8 @@
 //
 
 #import "AWAREPcMouseClick.h"
-#import "MouseClickEntity.h"
+#import "EntityMouseClick.h"
+#import "AWAREUtils.h"
 
 @implementation AWAREPcMouseClick{
     NSTimer *sensingTimer;
@@ -18,7 +19,9 @@
 - (instancetype)initWithSensorName:(NSString *)name
                         entityName:(NSString *)entity
                         awareStudy:(AWAREStudy *)study{
-    self = [super initWithSensorName:name entityName:NSStringFromClass([MouseClickEntity class]) awareStudy:study];
+    self = [super initWithSensorName:name
+                          entityName:NSStringFromClass([EntityMouseClick class])
+                          awareStudy:study];
     if (self) {
         [super setSensorName:name];
         pastMouseLocation = [NSEvent mouseLocation];
@@ -69,17 +72,9 @@
     }
     
     lastUpdateTime = [self getCurrentUnixtime];
-//    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
-//    NSNumber* unixtime = [AWAREUtils getUnixTimestamp:[NSDate new]];  //[NSNumber numberWithDouble:timeStamp];
-//    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-//    [dic setObject:unixtime forKey:@"timestamp"];
-//    [dic setObject:[self getDeviceId] forKey:@"device_id"];
-//    [dic setObject:buttonNumber forKey:@"button"];
-//    [dic setObject:buttonLabel forKey:@"label"];
-    
 
     AppDelegate *delegate=(AppDelegate*)[NSApplication sharedApplication].delegate;
-    MouseClickEntity *entity = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([MouseClickEntity class])
+    EntityMouseClick *entity = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([EntityMouseClick class])
                                                              inManagedObjectContext:delegate.managedObjectContext];
     
     entity.timestamp = [AWAREUtils getUnixTimestamp:[NSDate new]];
@@ -87,11 +82,12 @@
     entity.button = buttonNumber;
     entity.label = buttonLabel;
     
-    NSError * error = nil;
-    [delegate.managedObjectContext save:&error];
-    if (error != nil) {
-        NSLog(@"Error: %@", error.debugDescription);
-    }
+    [self saveDataToDB];
+//    NSError * error = nil;
+//    [delegate.managedObjectContext save:&error];
+//    if (error != nil) {
+//        NSLog(@"Error: %@", error.debugDescription);
+//    }
     
     
     [self setLatestValue:[NSString stringWithFormat:

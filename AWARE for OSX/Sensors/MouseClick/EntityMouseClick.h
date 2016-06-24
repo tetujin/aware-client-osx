@@ -1,8 +1,8 @@
 //
-//  KeyboardEntity.h
+//  EntityMouseClick.h
 //  AWARE for OSX
 //
-//  Created by Yuuki Nishiyama on 5/18/16.
+//  Created by Yuuki Nishiyama on 6/22/16.
 //  Copyright © 2016 Yuuki NISHIYAMA. All rights reserved.
 //
 
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface KeyboardEntity : NSManagedObject
+@interface EntityMouseClick : NSManagedObject
 
 // Insert code here to declare functionality of your managed object subclass
 
@@ -19,4 +19,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-#import "KeyboardEntity+CoreDataProperties.h"
+#import "EntityMouseClick+CoreDataProperties.h"

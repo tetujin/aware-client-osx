@@ -27,6 +27,7 @@ NSString* const SETTING_DEBUG_STATE = @"setting_debug_state";
 NSString *const SETTING_SYNC_WIFI_ONLY = @"setting_sync_wifi_only";
 NSString* const SETTING_SYNC_INT = @"setting_sync_interval";
 NSString* const SETTING_DELETE_INT = @"setting_delete_interval";
+NSString* const SETTING_SYNC_BATTERY_CHARGING_ONLY = @"setting_sync_battery_charging_only";
 
 
 NSString* const TABLE_INSERT = @"insert";
