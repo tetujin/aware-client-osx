@@ -7,12 +7,12 @@
 //
 
 #import "PreferencesWindow.h"
-#import "GTMOAuth2WindowController.h"
-#import "GTMHTTPFetchHistory.h"
-#import "GTMOAuth2WindowController.h"
-#import "GTMOAuth2Authentication.h"
-#import "GTMOAuth2SignIn.h"
-#import "GTMHTTPFetcher.h"
+// #import "GTMOAuth2WindowController.h"
+// #import "GTMHTTPFetchHistory.h"
+// #import "GTMOAuth2WindowController.h"
+// #import "GTMOAuth2Authentication.h"
+// #import "GTMOAuth2SignIn.h"
+// #import "GTMHTTPFetcher.h"
 #import "AWAREStudy.h"
 #import "AWAREKeys.h"
 #import "AWARESensor.h"
@@ -87,7 +87,7 @@
 - (IBAction)pushedGoogleButton:(id)sender {
     [self setPreferencesView:_googleView];
     [sensorViewRefreshTimer invalidate];
-    [self initGoogleView];
+    // [self initGoogleView];
 }
 
 
@@ -135,6 +135,8 @@
 //    [self initGoogleView];
 }
 
+
+
 - (void) initAwareView {
 //    AWAREStudy *awareStudy = [[AWAREStudy alloc] init];
     if ([awareStudy isAvailable]) {
@@ -178,31 +180,6 @@
     }
 }
 
-
-- (void) initGoogleView {
-    GTMOAuth2WindowController *windowController;
-    windowController = [[GTMOAuth2WindowController alloc] initWithScope:scope
-                                                                clientID:kMyClientID
-                                                            clientSecret:kMyClientSecret
-                                                        keychainItemName:kKeychainItemName
-                                                          resourceBundle:nil];
-    
-    [windowController signInSheetModalForWindow:self.window
-                                 delegate:self
-                         finishedSelector:@selector(windowController:finishedWithAuth:error:)];
-}
-
-- (void)windowController:(GTMOAuth2WindowController *)windowController
-      finishedWithAuth:(GTMOAuth2Authentication *)finishedWithAuth
-                 error:(NSError *)error {
-    if (error != nil) {
-        // Sign-in failed
-        NSLog(@"Sign-in failded!");
-    } else {
-        // Sign-in succeeded
-        NSLog(@"Sign-in succeeded!");
-    }
-}
 
 /**
  * for AWARE View

@@ -6,6 +6,14 @@
         <attribute name="label" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
     </entity>
+    <entity name="EntityGoogleLogin" syncable="YES">
+        <attribute name="blob_picture" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="device_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phonenumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
     <entity name="EntityKeyboard" representedClassName="EntityKeyboard" syncable="YES">
         <attribute name="device_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="key_code" optional="YES" attributeType="String" syncable="YES"/>
@@ -36,5 +44,6 @@
         <element name="EntityMouseClick" positionX="-36" positionY="54" width="128" height="105"/>
         <element name="EntityMouseLocation" positionX="-63" positionY="9" width="128" height="105"/>
         <element name="EntityPcUsage" positionX="-27" positionY="63" width="128" height="105"/>
+        <element name="EntityGoogleLogin" positionX="-45" positionY="54" width="128" height="135"/>
     </elements>
 </model>

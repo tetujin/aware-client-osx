@@ -72,6 +72,8 @@
         appUsage.application = currentActiveApp;
         appUsage.label = @"Mac App";
         
+        // [delegate.managedObjectContext save:nil];
+        
         [self saveDataToDB];
     }
 }

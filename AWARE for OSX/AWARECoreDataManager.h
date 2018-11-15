@@ -27,6 +27,7 @@ typedef enum: NSInteger {
                         sensorName:(NSString *)name
                       dbEntityName:(NSString *)entity;
 
+// @property NSManagedObjectContext *writerContext;
 @property NSManagedObjectContext *mainQueueManagedObjectContext;
 
 @end

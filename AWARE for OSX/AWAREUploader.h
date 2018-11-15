@@ -18,24 +18,20 @@
 - (void) lockBackgroundUpload;
 - (void) unlockBackgroundUpload;
 
-
-
 - (void) allowsCellularAccess;
 - (void) forbidCellularAccess;
 - (void) allowsDateUploadWithoutBatteryCharging;
 - (void) forbidDatauploadWithoutBatteryCharging;
 
-
 - (bool) isDebug;
 - (bool) isSyncWithOnlyWifi;
 - (bool) isSyncWithOnlyBatteryCharging;
-
 
 // CoreData
 - (void) setBufferSize:(int)size;
 - (void) setFetchLimit:(int)limit;
 - (void) setFetchBatchSize:(int)size;
-- (int) getBufferSize;
+- (int)  getBufferSize;
 - (int)  getFetchLimit;
 - (int)  getFetchBatchSize;
 - (bool) saveDataToDB;//TODO
@@ -45,10 +41,8 @@
 - (void) postSensorDataWithSensorName:(NSString*) name session:(NSURLSession *)oursession;
 - (BOOL) syncAwareDBWithData:(NSDictionary *) dictionary;
 
-
 - (BOOL) syncAwareDBInForeground;
 - (BOOL) syncAwareDBInForegroundWithSensorName:(NSString*) name;
-
 
 - (void) createTable:(NSString*) query;
 - (void) createTable:(NSString *)query withTableName:(NSString*) tableName;

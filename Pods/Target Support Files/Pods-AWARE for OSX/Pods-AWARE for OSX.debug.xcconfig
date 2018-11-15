@@ -1,5 +1,9 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/SCNetworkReachability" "${PODS_ROOT}/Headers/Public/ZXingObjC" "${PODS_ROOT}/Headers/Public/gtm-http-fetcher" "${PODS_ROOT}/Headers/Public/gtm-oauth2" "${PODS_ROOT}/Headers/Public/macros_blocks"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/SCNetworkReachability" -isystem "${PODS_ROOT}/Headers/Public/ZXingObjC" -isystem "${PODS_ROOT}/Headers/Public/gtm-http-fetcher" -isystem "${PODS_ROOT}/Headers/Public/gtm-oauth2" -isystem "${PODS_ROOT}/Headers/Public/macros_blocks"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"SCNetworkReachability" -l"ZXingObjC" -l"gtm-http-fetcher" -l"gtm-oauth2" -framework "AVFoundation" -framework "CoreMedia" -framework "Foundation" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/GTMSessionFetcher" "${PODS_ROOT}/Headers/Public/SCNetworkReachability" "${PODS_ROOT}/Headers/Public/ZXingObjC" "${PODS_ROOT}/Headers/Public/macros_blocks"
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/GTMSessionFetcher" "${PODS_CONFIGURATION_BUILD_DIR}/SCNetworkReachability" "${PODS_CONFIGURATION_BUILD_DIR}/ZXingObjC"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/GTMSessionFetcher" -isystem "${PODS_ROOT}/Headers/Public/SCNetworkReachability" -isystem "${PODS_ROOT}/Headers/Public/ZXingObjC" -isystem "${PODS_ROOT}/Headers/Public/macros_blocks"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"GTMSessionFetcher" -l"SCNetworkReachability" -l"ZXingObjC" -framework "AVFoundation" -framework "CoreMedia" -framework "Foundation" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration"
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods

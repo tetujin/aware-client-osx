@@ -4,7 +4,22 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>GTMSessionFetcher.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-AWARE for OSX.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-AWARE for OSXTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-AWARE for OSXUITests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -19,40 +34,35 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>gtm-http-fetcher.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>gtm-oauth2.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>15D6D33B1033B92F536E1EAD985AEA29</key>
+		<key>041EE1A1AA44B15C24F45FE82641D2D4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3F86AA6A065B7DA2C389B81F28C57B52</key>
+		<key>0A8B3B468CD81C0D11A6AF2AE551691D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BE94473C2215FA624C9D247C524FC10E</key>
+		<key>2B25F4BCFCDDF582183F5B4FD97DF57E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CEC0BF5618759AE3B760DD81102D5FEB</key>
+		<key>781230636E2DD49F3C53FE1A2FF6E28D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EDF0EB49A8717A0ACF3608D04A50F46F</key>
+		<key>EC266C0D614DF3125B206CD962DA5FC9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F2735BB2B63EC7FFE680D9B20835C023</key>
 		<dict>
 			<key>primary</key>
 			<true/>

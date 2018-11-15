@@ -152,7 +152,6 @@
         sessionConfig.HTTPMaximumConnectionsPerHost = 60;
         sessionConfig.timeoutIntervalForResource = 60; //60*60*24; // 1 day
         sessionConfig.allowsCellularAccess = YES;
-        sessionConfig.discretionary = YES;
         
         NSLog(@"--- This is background task ----");
         session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];

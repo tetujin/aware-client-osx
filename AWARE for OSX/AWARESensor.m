@@ -149,6 +149,7 @@
     sessionConfig.HTTPMaximumConnectionsPerHost = 30;
     
     session = [NSURLSession sessionWithConfiguration:sessionConfig];
+    
     [[session dataTaskWithRequest:request
                 completionHandler:^(NSData * _Nullable data,
                                     NSURLResponse * _Nullable response,
@@ -157,24 +158,19 @@
                     int responseCode = (int)[httpResponse statusCode];
                     
                     NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                    NSLog(@"[%@] Response----> %d, %@", [self getSensorName],responseCode, newStr);
+                    NSLog(@"[%@] Response----> %d, %@", [self getSensorName], responseCode, newStr);
                     
                     if(responseCode == 200){
-                        //                        [self removeFile:[self getSensorName]];
-                        //                        //                            [self createNewFile:[self getSensorName]];
                         NSString *message = [NSString stringWithFormat:@"[%@] Sucess to create new table on AWARE server.", [self getSensorName]];
                         NSLog(@"%@", message);
-                        //                        [self sendLocalNotificationForMessage:message soundFlag:NO];
+                    }else{
+                        NSLog(@"%@", error.debugDescription);
                     }
                     //                    previusUploadingState = NO;
                     data = nil;
                     response = nil;
                     error = nil;
                     httpResponse = nil;
-                    //                    dispatch_async(dispatch_get_main_queue(), ^{
-                    //                        [session finishTasksAndInvalidate];
-                    //                        [session invalidateAndCancel];
-                    //                    });
                 }] resume];
 }
 

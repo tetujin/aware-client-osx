@@ -53,7 +53,7 @@
  * start monitoring the mouse and key action
  */
 - (void) startMonitoring {
-        monitorKeyDown = [NSEvent addGlobalMonitorForEventsMatchingMask:NSKeyDownMask handler:^(NSEvent *evt) {
+        monitorKeyDown = [NSEvent addGlobalMonitorForEventsMatchingMask:(NSKeyDownMask) handler:^(NSEvent *evt) {
 //            lastUpdateTime = [self getCurrentUnixtime];
 //            NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
 //            NSNumber* unixtime = [NSNumber numberWithDouble:timeStamp];
